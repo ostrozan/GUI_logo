@@ -5,8 +5,66 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GUI_logo"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        
+        Title="Smart relay 1.0" Height="509" Width="698" Loaded="Window_Loaded" PreviewMouseLeftButtonDown="Window_PreviewMouseLeftButtonDown">
+    <Grid x:Name="mainGrid">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="100*"/>
+            <RowDefinition Height="359*"/>
+        </Grid.RowDefinitions>
+
+        <Menu Name="mainmenu" Height="20" VerticalAlignment="Top" Grid.ColumnSpan="2" Margin="0" Grid.RowSpan="2" GotFocus="mainmenu_GotFocus">
+
+            <MenuItem Header="Projekt">
+                <MenuItem.CommandBindings>
+                    <CommandBinding Command="New" CanExecute="CanExecute" Executed ="new_Executed"/>
+                    <CommandBinding Command="Save" CanExecute="CanExecute" Executed ="save_Executed"/>
+                    <CommandBinding Command="Open" CanExecute="CanExecute" Executed="open_Executed"/>
+                    
+                </MenuItem.CommandBindings>
+                <MenuItem Name="new" Command="New"/>
+                
+                <MenuItem Name="save" Command="Save"/>
+                <MenuItem Name="open" Command="Open">
+                    <ListBox Name="lbProjects" SelectionChanged="lbProjects_SelectionChanged"/>
+                </MenuItem>
+            </MenuItem>
+
+        </Menu>
+        <Canvas Name="mainCanvas" Grid.ColumnSpan="2" Margin="0,0,129.019,100" Grid.RowSpan="2">
+
+        </Canvas>
+        <Grid x:Name="gridBody" Grid.Row="1" Margin="80,95.075,81.509,94.094" Background="#FFE0D8D8" Width="400" Height="270" Grid.RowSpan="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="25*"/>
+                <RowDefinition Height="50*"/>
+                <RowDefinition Height="25*"/>
+            </Grid.RowDefinitions>
+            <StackPanel x:Name="stPanelOuts" Orientation="Horizontal" Background="#FFC9CFD3" Uid="out">
+                <local:Gpio x:Name="Out1" Uid="0" MouseEnter="Out_MouseEnter" MouseLeave="Out_MouseLeave" MouseDoubleClick="GGpio_Dbl_click"/>
+                <local:Gpio x:Name="Out2" Uid="1" MouseEnter="Out_MouseEnter" MouseLeave="Out_MouseLeave" MouseDoubleClick="GGpio_Dbl_click"/>
+                <local:Gpio x:Name="Out3" Uid="2" MouseEnter="Out_MouseEnter" MouseLeave="Out_MouseLeave" MouseDoubleClick="GGpio_Dbl_click"/>
+                <local:Gpio x:Name="Out4" Uid="3" MouseEnter="Out_MouseEnter" MouseLeave="Out_MouseLeave" MouseDoubleClick="GGpio_Dbl_click"/>
+                <local:Gpio x:Name="Out5" Uid="4" MouseEnter="Out_MouseEnter" MouseLeave="Out_MouseLeave" MouseDoubleClick="GGpio_Dbl_click" />
+                <local:Gpio x:Name="Out6" Uid="5" MouseEnter="Out_MouseEnter" MouseLeave="Out_MouseLeave" MouseDoubleClick="GGpio_Dbl_click"/>
+            </StackPanel>
+            <StackPanel  x:Name="stPanelIns" Grid.Row="2" Orientation="Horizontal" Margin="0" Background="#FFC9CFD3" Uid="in">
+                <local:Gpio x:Name="In1" Uid="0" MouseEnter="Out_MouseEnter" MouseLeave="Out_MouseLeave" MouseDoubleClick="GGpio_Dbl_click" />
+                <local:Gpio x:Name="In2" Uid="1" MouseEnter="Out_MouseEnter" MouseLeave="Out_MouseLeave" MouseDoubleClick="GGpio_Dbl_click"/>
+                <local:Gpio x:Name="In3" Uid="2" MouseEnter="Out_MouseEnter" MouseLeave="Out_MouseLeave" MouseDoubleClick="GGpio_Dbl_click" />
+                <local:Gpio x:Name="In4" Uid="3" MouseEnter="Out_MouseEnter" MouseLeave="Out_MouseLeave" MouseDoubleClick="GGpio_Dbl_click" />
+            </StackPanel>
+            <RadioButton x:Name="rbAuto" Content="Auto" HorizontalAlignment="Left" Margin="19,26.981,0,0" Grid.Row="1" VerticalAlignment="Top" Checked="rbAuto_Checked" IsChecked="True"/>
+            <RadioButton x:Name="rbHand" Content="Ručně" HorizontalAlignment="Left" Margin="19,57.981,0,0" Grid.Row="1" VerticalAlignment="Top" Checked="rbHand_Checked"/>
+            <RadioButton x:Name="rbParam" Content="Změna parametrů" HorizontalAlignment="Left" Margin="19,88.981,0,0" Grid.Row="1" VerticalAlignment="Top" Checked="rbParam_Checked"/>
+        </Grid>
+        <Button x:Name="btnSerCom" Content="Připojit" Grid.Column="1" HorizontalAlignment="Center" Margin="27.491,23,27.019,0" Grid.Row="2" VerticalAlignment="Top" Width="75" Click="btnSerCom_Click"/>
+        <ComboBox x:Name="cmbComPorts" Grid.Column="1" HorizontalAlignment="Center" Margin="0.491,93,0,0" Grid.Row="2" VerticalAlignment="Top" RenderTransformOrigin="-0.246,0.75" SelectionChanged="cmbComPorts_SelectionChanged" SelectedIndex="0"/>
+        <TextBlock HorizontalAlignment="Left" Margin="99,51,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16">Projekt :</TextBlock>
+        <TextBlock x:Name="tbProjName" HorizontalAlignment="Left" Margin="170,51,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16"/>
     </Grid>
 </Window>

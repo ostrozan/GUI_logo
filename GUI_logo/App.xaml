@@ -4,6 +4,8 @@
              xmlns:local="clr-namespace:GUI_logo"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <Style TargetType="TextBox">
+            
+        </Style> 
     </Application.Resources>
 </Application>

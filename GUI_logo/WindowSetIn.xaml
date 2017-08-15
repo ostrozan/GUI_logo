@@ -1,0 +1,45 @@
+﻿<Window x:Class="GUI_logo.WindowSetIn"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GUI_logo"
+        mc:Ignorable="d"
+        Title="Nastavení vstupu" Height="300" Width="278.453" Loaded="Window_Loaded" HorizontalAlignment="Center" FontSize="18">
+    <Grid Margin="0">
+        <Canvas Margin="0">
+            <TextBlock x:Name="tbFunc" Text="Funkce" Canvas.Left="42" Canvas.Top="24"/>
+            <ComboBox Name="cmbFunc" RenderTransformOrigin="1.27,1.243" Height="auto" Canvas.Left="112" Width="auto" Canvas.Top="17" SelectionChanged="cmbFunc_SelectionChanged">
+                <ComboBoxItem Content="sepnout výstup"/>
+                <ComboBoxItem Content="vypnoutt výstup"/>
+                <ComboBoxItem Content="blokovat výstup"/>
+                <ComboBoxItem Content="spustit časování"/>
+                <ComboBoxItem Content="poslat sms "/>
+                <ComboBoxItem Content="prozvonit "/>
+            </ComboBox>
+            <StackPanel Name="stpOuts" Margin="91,55,0,0" CheckBox.Checked="stpOuts_Checked" 
+                      CheckBox.Unchecked="stpOuts_Unchecked"  HorizontalAlignment="Center" d:IsHidden="True">
+                <CheckBox Content="rele1" Uid="0" />
+                <CheckBox Content="rele2" Uid="1"/>
+                <CheckBox Content="out1" Uid="2"/>
+                <CheckBox Content="out2" Uid="3"/>
+                <CheckBox Content="out3" Uid="4"/>
+                <CheckBox Content="out4" Uid="5"/>
+            </StackPanel>
+            <StackPanel Name="stpTelNmb" Orientation="Vertical" Margin="102,84,0,0" HorizontalAlignment="Center">
+                <TextBlock Canvas.Left="92" Canvas.Top="69" HorizontalAlignment="Center"><Run Text="tel. číslo"/></TextBlock>
+                <TextBox x:Name="tbTelNmb" Text="000000000" Margin="0" Canvas.Left="80" Canvas.Top="96" HorizontalAlignment="Center" TextChanged="tbTelNmb_TextChanged"/>
+            </StackPanel>
+            <StackPanel Name="stpSms" Margin="71,150,0,0" Width="150" HorizontalAlignment="Center">
+                <TextBlock Canvas.Left="92" Canvas.Top="127" Width="73" HorizontalAlignment="Center"><Run Text="text sms"/></TextBlock>
+                <TextBox x:Name="tbTSmsText" Width="150" Canvas.Top="150" Canvas.Left="56" HorizontalAlignment="Center" HorizontalContentAlignment="Center" TextChanged="tbTSmsText_TextChanged" />
+            </StackPanel>
+            <Button x:Name="btnOk" Content="uložit" Canvas.Left="10" Canvas.Top="233" Width="75" RenderTransformOrigin="-0.014,0.46" Click="btnOk_Click"/>
+            <Button x:Name="btnCancel" Content="zrušit" Canvas.Left="186" Canvas.Top="233" Width="75" RenderTransformOrigin="-0.014,0.46" Click="btnCancel_Click"/>
+
+
+
+
+        </Canvas>
+    </Grid>
+</Window>
