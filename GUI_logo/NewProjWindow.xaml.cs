@@ -56,6 +56,7 @@ namespace GUI_logo
         {
             MainWindow.pathProj = pathProj;
             MainWindow.projPaths.Add(pathProj);
+            MainWindow.projectName = tbxName.Text;
             DialogResult = true;
             this.Close();
         }

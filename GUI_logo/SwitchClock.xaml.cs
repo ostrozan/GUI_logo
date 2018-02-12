@@ -14,7 +14,7 @@ namespace GUI_logo
     public partial class SwitchClock : UserControl
     {
         public event PropertyChangedEventHandler PropertyChanged = (sender, e) => { };
-        public string Name { get; set; }
+        public string Jmeno { get; set; }
         private int Hod { get; set; }
         private int Min { get; set; }
         private int Sec { get; set; }
@@ -28,31 +28,31 @@ namespace GUI_logo
         private Button btAdd;
         private Button btRemove;
         private int numberOfTimeSpan;
-        public int ThisHeight{ get; set; }
+        public int ThisHeight { get; set; }
         Binding bnd = new Binding();
-    public SwitchClock()
+        public SwitchClock()
         {
             InitializeComponent();
-         
+
             //AddTimeSpan(0,0,0);
             bnd.Source = TimeSpans;
-          
+
         }
 
         private int prewMinutesValue;
-        public void AddTimeSpan(int idx,int start, int stop)
+        public void AddTimeSpan(int idx, int start, int stop)
         {
-            
-            stpTimeSpan = new StackPanel() { Orientation = Orientation.Horizontal };         
+
+            stpTimeSpan = new StackPanel() { Orientation = Orientation.Horizontal };
             stpTimeSpan.Children.Add(new TimePicker(start));
             stpTimeSpan.Children.Add(new TimePicker(stop));
             stpAddRem = new StackPanel() { Margin = new Thickness(0, 3, 0, 2) };
-            btAdd = new Button() {  FontSize = 10, Content = "+", Width = 20, Height = 12, Padding = new Thickness(0, -3, 0, 0), Margin = new Thickness(2, 0, 0, 1) };
+            btAdd = new Button() { FontSize = 10, Content = "+", Width = 20, Height = 12, Padding = new Thickness(0, -3, 0, 0), Margin = new Thickness(2, 0, 0, 1) };
             btRemove = new Button() { FontSize = 10, Content = "-", Width = 20, Height = 12, Padding = new Thickness(0, -3, 0, 0), Margin = new Thickness(2, 0, 0, 1) };
             stpAddRem.Children.Add(btRemove);
             stpTimeSpan.Children.Add(stpAddRem);
-            stpAddRem.Children.Add(btAdd);          
-            stpMain.Children.Insert(idx,stpTimeSpan);
+            stpAddRem.Children.Add(btAdd);
+            stpMain.Children.Insert(idx, stpTimeSpan);
             TimeSpans.Insert(idx, stpTimeSpan);
             SortMainStack();
         }
@@ -64,7 +64,7 @@ namespace GUI_logo
             SortMainStack();
         }
 
-        private void SortMainStack( )
+        private void SortMainStack()
         {
             string uid;
             int i = 0;
@@ -100,19 +100,20 @@ namespace GUI_logo
             Button btn = (Button)e.Source;
             StackPanel stp = (StackPanel)sender;
             int idx = int.Parse(btn.Uid) + 1;
-            if(btn.Content=="+")
+            if (btn.Content == "+" && TimeSpans.Count < 4)
             {
-            AddTimeSpan(idx,0,0);
-            ThisHeight = 30;
+                AddTimeSpan(idx, 0, 0);
+                ThisHeight = 30;
+                RaiseUpdateWin();
             }
-            else if (btn.Content == "-")
+            else if (btn.Content == "-" && TimeSpans.Count > 1)
             {
-                RemoveTimeSpan(idx-1);
+                RemoveTimeSpan(idx - 1);
                 ThisHeight = -30;
-               
+                RaiseUpdateWin();
             }
-             RaiseUpdateWin();
+
 
         }
-    }   
+    }
 }

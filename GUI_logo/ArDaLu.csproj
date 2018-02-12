@@ -39,6 +39,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Management" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -58,6 +59,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Casovac.cs" />
+    <Compile Include="GsmData.cs" />
     <Compile Include="In.cs" />
     <Compile Include="Input.xaml.cs">
       <DependentUpon>Input.xaml</DependentUpon>
@@ -75,14 +77,23 @@
       <DependentUpon>ProgTimer.xaml</DependentUpon>
     </Compile>
     <Compile Include="Spinacky.cs" />
+    <Compile Include="SpinackyLabel.xaml.cs">
+      <DependentUpon>SpinackyLabel.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SwitchClock.xaml.cs">
       <DependentUpon>SwitchClock.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Thermostat.xaml.cs">
+      <DependentUpon>Thermostat.xaml</DependentUpon>
     </Compile>
     <Compile Include="TimeControl.xaml.cs">
       <DependentUpon>TimeControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="WindowCasovac.xaml.cs">
       <DependentUpon>WindowCasovac.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WindowSetGsm.xaml.cs">
+      <DependentUpon>WindowSetGsm.xaml</DependentUpon>
     </Compile>
     <Compile Include="WindowSetIn.xaml.cs">
       <DependentUpon>WindowSetIn.xaml</DependentUpon>
@@ -126,7 +137,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="SpinackyLabel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="SwitchClock.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Thermostat.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -135,6 +154,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="WindowCasovac.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WindowSetGsm.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -165,6 +188,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="ClassDiagram1.cd" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -173,12 +197,28 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Images\download.png" />
+    <Resource Include="Images\stopwatch.bmp" />
+    <Resource Include="Images\watch.bmp" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\1498821743_Smart Draw.ico" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="1498821743_Smart Draw.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\upload.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Input.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Teplomer.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\tempmeter.bmp" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

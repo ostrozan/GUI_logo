@@ -1,0 +1,63 @@
+﻿<Window x:Class="GUI_logo.WindowSetGsm"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GUI_logo"
+        mc:Ignorable="d"
+        Title="Nastavení Gsm" Height="401.264" Width="363.623" Loaded="Window_Loaded">
+    <Grid Margin="0,0,-7.17,0.321">
+        <StackPanel x:Name="stpTelCislaMain" Orientation="Horizontal" HorizontalAlignment="Left" Margin="42,117,0,0" VerticalAlignment="Top" Width="100">
+            <StackPanel x:Name="stpTblocks" Orientation="Vertical">
+                <TextBlock Text="číslo 1"/>
+                <TextBlock Text="číslo 2"/>
+                <TextBlock Text="číslo 3"/>
+            </StackPanel>
+            <StackPanel PreviewTextInput="stpTboxes_PreviewTextInput" x:Name="stpTboxes" Orientation="Vertical" Margin="0,0,0,-0.472" Width="64">
+                <TextBox Name="tbxTel1" HorizontalContentAlignment="Stretch"/>
+                <TextBox Name="tbxTel2"/>
+                <TextBox Name="tbxTel3"/>
+
+            </StackPanel>
+        </StackPanel>
+        <CheckBox x:Name="chbGsmEnable" Content="Povolit ovládání GSM" HorizontalAlignment="Left" Margin="42,21,0,0" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Center" Margin="220,21,8.83,0" TextWrapping="Wrap" Text="Příkazy - seznam" VerticalAlignment="Top" Width="128"/>
+        <StackPanel x:Name="stpPrikazyMain" Orientation="Horizontal" HorizontalAlignment="Left" Margin="220,61,0,0" VerticalAlignment="Top">
+            <StackPanel x:Name="stpTblocks1" Orientation="Vertical">
+                <TextBlock Text="rele 1 ON" Height="16" Margin="0,3,0,0" TextAlignment="Right"/>
+                <TextBlock Text="rele 1 OFF" Height="16" Margin="0,3,0,0" TextAlignment="Right"/>
+                <TextBlock Text="rele 2 ON" Height="16" Margin="0,4,0,0" TextAlignment="Right"/>
+                <TextBlock Text="rele 2 OFF" Height="16" Margin="0,3,0,0" TextAlignment="Right"/>
+                <TextBlock Text="výstup 3 ON" Height="16" Margin="0,3,0,0" TextAlignment="Right"/>
+                <TextBlock Text="výstup 3 OFF" Height="16" Margin="0,4,0,0" TextAlignment="Right"/>
+                <TextBlock Text="výstup 4 ON" Height="16" Margin="0,3,0,0" TextAlignment="Right"/>
+                <TextBlock Text="výstup 4 OFF" Height="16" Margin="0,3,0,0" TextAlignment="Right"/>
+                <TextBlock Text="výstup 5 ON" Height="16" Margin="0,3,0,0" TextAlignment="Right"/>
+                <TextBlock Text="výstup 6 OFF" Height="16" Margin="0,3,0,0"/>
+                <TextBlock Text="výstup 6 ON" Height="16" Margin="0,3,0,0" TextAlignment="Right"/>
+                <TextBlock Text="výstup 6 OFF" Height="16" Margin="0,3,0,0"/>
+                <TextBlock Text="stavy" Height="16"/>
+
+            </StackPanel>
+            <StackPanel x:Name="stpTboxes1" Orientation="Vertical" Margin="0" Width="37" PreviewTextInput="stpTboxes1_PreviewTextInput">
+                <TextBlock x:Name="tbxCmd1On" Margin="5,3,0,0" Height="16" Text="1on" FontWeight="Bold"/>
+                <TextBlock x:Name="tbxCmd1Off" Margin="5,3,0,0" Height="16" Text="1of" FontWeight="Bold"/>
+                <TextBlock x:Name="tbxCmd2On" Margin="5,3,0,0" Height="16" Text="2on" FontWeight="Bold"/>
+                <TextBlock x:Name="tbxCmd2Off" Margin="5,3,0,0" Height="16" Text="2of" FontWeight="Bold"/>
+                <TextBlock x:Name="tbxCmd3On" Margin="5,3,0,0" Height="16" Text="3on" FontWeight="Bold"/>
+                <TextBlock  x:Name="tbxCmd3Off" Margin="5,3,0,0" Height="16" Text="3of" FontWeight="Bold"/>
+                <TextBlock x:Name="tbxCmd4On" Margin="5,3,0,0" Height="16" Text="4on" FontWeight="Bold"/>
+                <TextBlock x:Name="tbxCmd4Off" Margin="5,3,0,0" Height="16" Text="4of" FontWeight="Bold"/>
+                <TextBlock x:Name="tbxCmd5On" Margin="5,3,0,0" Height="16" Text="5on" FontWeight="Bold"/>
+                <TextBlock x:Name="tbxCmd5Off" Margin="5,3,0,0" Height="16" Text="5of" FontWeight="Bold"/>
+                <TextBlock  x:Name="tbxCmd6On" Margin="5,3,0,0" Height="16" Text="6on" FontWeight="Bold"/>
+                <TextBlock x:Name="tbxCmd6Off" Margin="5,3,0,0" Height="16" Text="6of" FontWeight="Bold"/>
+                <TextBlock x:Name="tbxCmdStatus" Margin="5,3,0,0" Height="16" Text="???" FontWeight="Bold"/>
+            </StackPanel>
+        </StackPanel>
+        <TextBlock HorizontalAlignment="Left" Margin="62,76,0,0" TextWrapping="Wrap" Text="Telefonní čísla" VerticalAlignment="Top"/>
+        <Button x:Name="btnOk" Content="uložit" HorizontalAlignment="Left" Margin="25,334,0,0" VerticalAlignment="Top" Width="75" FontSize="18" Click="btnOk_Click"/>
+        <Button x:Name="btnCancel" Content="zrušit" HorizontalAlignment="Left" Margin="260,334,0,0" VerticalAlignment="Top" Width="75" FontSize="18" Click="btnCancel_Click"/>
+
+    </Grid>
+</Window>

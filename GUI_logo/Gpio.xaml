@@ -4,8 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:GUI_logo"
-             mc:Ignorable="d" 
-             d:DesignHeight="70.491" d:DesignWidth="62.438" BorderBrush="Black">
+             mc:Ignorable="d" BorderBrush="Black" Height="88.377" Width="62.212">
 
     <Grid x:Name="mainGrid">
         <!--Grid.ContextMenu>
@@ -15,12 +14,15 @@
             </ContextMenu>
         </-->
         <Grid.RowDefinitions>
-            <RowDefinition Height="27*"/>
+            <RowDefinition Height="26*"/>
             <RowDefinition Height="43*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Rectangle Fill="#FFF4F4F5" Margin="2" Stroke="Black" Grid.RowSpan="2"/>
 
         <TextBlock Name="tbPopis" Text="in/out" FontSize="20" VerticalAlignment="Center" Height="27" Margin="5,-2,4.491,2.17" Width="53" TextAlignment="Center"/>
         <Ellipse x:Name="Led" Grid.Row="1" Stroke="Black" StrokeThickness="2" Margin="19,13,18.491,5"/>
+        <StackPanel Name="stPanel" Grid.Row="2" Orientation="Horizontal" Height="15" >
+        </StackPanel>
     </Grid>
 </UserControl>

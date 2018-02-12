@@ -24,7 +24,7 @@ namespace GUI_logo
         private Gpio gpioTmp;
         private SwitchClock switchClock;
         private ProgTimer progTimer;
-
+        private Thermostat thermostat;
 
         public WindowSetOut(Gpio vystup)
         {
@@ -108,6 +108,20 @@ namespace GUI_logo
             this.Height = mainGrid.ActualHeight + 80;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        private void showThermostat()
+        {
+            thermostat = vystup.Therm;
+
+            contCtrl.Content = thermostat;
+            this.UpdateLayout();
+            this.Height = mainGrid.ActualHeight + 80;
+            thermostat.tbxTemp.IsEnabled = true;
+            thermostat.tbxOffset.IsEnabled = true;
+        }
+
         private void chbCasem_Checked(object sender, RoutedEventArgs e)
         {
             grbCasovac.IsEnabled = true;
@@ -118,17 +132,51 @@ namespace GUI_logo
         {
             grbCasovac.IsEnabled = false;
             contCtrl.IsEnabled = false;
+            rbSpinacky.IsChecked = false;
+            rbTimer.IsChecked = false;
         }
 
 
         private void btnOk_Click(object sender, RoutedEventArgs e)
         {
             MainWindow.projectSaved = false;
-            vystup.GpOut.IsTimeControl = (bool)chbCasem.IsChecked;
-            vystup.GpOut.IsInputControl = (bool)chbVstupy.IsChecked;
-            vystup.GpOut.IsExtControl = (bool)chbExtern.IsChecked;
+            vystup.GpOut.IsTimeControl = (bool)rbCasem.IsChecked;
+            vystup.GpOut.IsInputControl = (bool)rbVstupy.IsChecked;
+            vystup.GpOut.IsExtControl = (bool)rbExtern.IsChecked;
             vystup.GpOut.IsUseSwitchClk = (bool)rbSpinacky.IsChecked;
             vystup.GpOut.IsUseProgTmr = (bool)rbTimer.IsChecked;
+            vystup.GpOut.IsUseThermostat = (bool)rbTemp.IsChecked;
+            if ((bool)vystup.GpOut.IsUseSwitchClk)
+            {
+                vystup.stPanel.Children.RemoveRange(0, vystup.stPanel.Children.Count);
+                vystup.img.Source = vystup.watchImg;
+                vystup.stPanel.Children.Add(vystup.img);
+                vystup.stPanel.Children.Add(vystup.tblCounter);
+            }
+            else if ((bool)vystup.GpOut.IsUseProgTmr)
+            {
+                vystup.stPanel.Children.RemoveRange(0, vystup.stPanel.Children.Count);
+                vystup.img.Source = vystup.stopwatchImg;
+                vystup.stPanel.Children.Add(vystup.img);
+                vystup.stPanel.Children.Add(vystup.tblCounter);
+            }
+            else if ((bool)vystup.GpOut.IsUseThermostat)
+            {
+                vystup.stPanel.Children.RemoveRange(0, vystup.stPanel.Children.Count);
+                vystup.img.Source = vystup.tempMeterImg;
+                vystup.stPanel.Children.Add(vystup.img);
+            }
+
+            else
+            {
+                vystup.stPanel.Children.RemoveRange(0, vystup.stPanel.Children.Count);
+            }
+            //vystup.GpOut.IsUseProgTmr = (bool)rbTimer.IsChecked;
+            //vystup.GpOut.IsTrvale = progTimer.IsTrvale;
+            //vystup.GpOut.IsNastCas = progTimer.IsNastCas;
+            //vystup.GpOut.IsSwitchOn = progTimer.IsSwitchOn;
+            //vystup.GpOut.IsSwitchOff = progTimer.IsSwitchOff;
+            //vystup.GpOut.IsAnyChange = progTimer.IsAnyChange;
 
             MinuteSpan ms = new MinuteSpan();
             if (switchClock != null)
@@ -142,7 +190,6 @@ namespace GUI_logo
                     ms.startTime = (tp1.Hod * 60) + tp1.Min;
                     ms.stopTime = (tp2.Hod * 60) + tp2.Min;
                     vystup.GpOut.minuteSpan.Add(ms);
-
                 }
 
             }
@@ -154,8 +201,24 @@ namespace GUI_logo
             {
                 ControlTimes ct = new ControlTimes();
                 ct.timeOfDelay = (progTimer.timerCtrl1.Hod * 3600) + (progTimer.timerCtrl1.Min*60)+ progTimer.timerCtrl1.Sec;
-                ct.timeOfPulse = (progTimer.timerCtrl2.Hod * 3600) + (progTimer.timerCtrl2.Min * 60) + progTimer.timerCtrl2.Sec;
+                //ct.timeOfPulse = (progTimer.timerCtrl2.Hod * 3600) + (progTimer.timerCtrl2.Min * 60) + progTimer.timerCtrl2.Sec;
                 vystup.GpOut.controlTimes = ct;
+                //vystup.GpOut.IsTrvale = progTimer.IsTrvale;
+                //vystup.GpOut.IsNastCas = progTimer.IsNastCas;
+                //vystup.GpOut.IsSwitchOn = progTimer.IsSwitchOn;
+                //vystup.GpOut.IsSwitchOff = progTimer.IsSwitchOff;
+                //vystup.GpOut.IsAnyChange = progTimer.IsAnyChange;
+            }
+
+            if(thermostat != null)
+            {
+                vystup.GpOut.temperature = thermostat.temperature;
+                vystup.GpOut.hystreresis = thermostat.hystreresis;
+                vystup.GpOut.alarmHi = thermostat.alarmHi;
+                vystup.GpOut.alarmLo = thermostat.alarmLo;
+                vystup.GpOut.KtereCidlo = thermostat.KtereCidlo;
+                vystup.GpOut.IsAlarmHi = thermostat.IsAlarmHi;
+                vystup.GpOut.IsAlarmLo = thermostat.IsAlarmLo;
             }
             this.Close();
         }
@@ -169,16 +232,44 @@ namespace GUI_logo
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
 
-            chbCasem.IsChecked = vystup.GpOut.IsTimeControl;
-            chbVstupy.IsChecked = vystup.GpOut.IsInputControl;
-            chbExtern.IsChecked = vystup.GpOut.IsExtControl;
+            rbCasem.IsChecked = vystup.GpOut.IsTimeControl;
+            rbVstupy.IsChecked = vystup.GpOut.IsInputControl;
+            rbExtern.IsChecked = vystup.GpOut.IsExtControl;
+            rbTemp.IsChecked = vystup.GpOut.IsUseThermostat;
             rbSpinacky.IsChecked = vystup.GpOut.IsUseSwitchClk;
             //if (vystup.GpOut.IsUseSwitchClk == true)
             //    showSwitchClock();
+            if((bool)rbTemp.IsChecked)
+            {
+                thermostat.tbxTemp.Text = vystup.GpOut.temperature.ToString();
+                thermostat.tbxOffset.Text = vystup.GpOut.hystreresis.ToString();
+                thermostat.rbtCidlo1.IsChecked = vystup.GpOut.KtereCidlo == '1' ? true : false;
+                thermostat.rbtCidlo2.IsChecked = vystup.GpOut.KtereCidlo == '2' ? true : false;
+            }
             rbTimer.IsChecked = vystup.GpOut.IsUseProgTmr;
             if (vystup.GpOut.IsUseProgTmr == true)
                 showProgTimer();
-            grbCasovac.IsEnabled = (bool)chbCasem.IsChecked ? true : false;
+            grbCasovac.IsEnabled = (bool)rbCasem.IsChecked ? true : false;
+            this.Height = mainGrid.ActualHeight + 80;
+        }
+
+        private void rbTemp_Checked(object sender, RoutedEventArgs e)
+        {
+            contCtrl.Content = null;
+            showThermostat();
+        }
+
+        private void rbVstupy_Checked(object sender, RoutedEventArgs e)
+        {
+            contCtrl.Content = null;
+            this.UpdateLayout();
+            this.Height = mainGrid.ActualHeight + 80;
+        }
+
+        private void rbExtern_Checked(object sender, RoutedEventArgs e)
+        {
+            contCtrl.Content = null;
+            this.UpdateLayout();
             this.Height = mainGrid.ActualHeight + 80;
         }
     }

@@ -20,9 +20,10 @@
         <ContentControl Name="contCtrl" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"/>
         <GroupBox x:Name="grbOvladani" Header="Ovládání" Height="100" Width="100" VerticalAlignment="Top" HorizontalAlignment="Center">
             <StackPanel Margin="0,20,00,0" VerticalAlignment="Top">
-                <CheckBox x:Name="chbCasem" Content="časem" Checked="chbCasem_Checked" Unchecked="chbCasem_Unchecked" />
-                <CheckBox x:Name="chbVstupy" Content="vstupy" />
-                <CheckBox x:Name="chbExtern" Content="externě" />
+                <RadioButton x:Name="rbCasem" Content="časem" Checked="chbCasem_Checked" Unchecked="chbCasem_Unchecked" />
+                <RadioButton x:Name="rbVstupy" Content="vstupy" Checked="rbVstupy_Checked" />
+                <RadioButton x:Name="rbTemp" Content="teplotou" Checked="rbTemp_Checked" />
+                <RadioButton x:Name="rbExtern" Content="externě" Checked="rbExtern_Checked" />
             </StackPanel>
 
         </GroupBox>

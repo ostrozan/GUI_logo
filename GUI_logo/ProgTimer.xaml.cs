@@ -42,7 +42,7 @@ namespace GUI_logo
         private void rbTrvale_Checked(object sender, RoutedEventArgs e)
         {
            IsTrvale = true;
-           IsNastCas= timerCtrl2.IsEnabled = false;
+           IsNastCas= /*timerCtrl2.IsEnabled =*/ false;
         }
 
         /// <summary>
@@ -53,7 +53,7 @@ namespace GUI_logo
         private void rbPuls_Checked(object sender, RoutedEventArgs e)
         {
             IsTrvale = false;
-            IsNastCas = timerCtrl2.IsEnabled = true;
+            IsNastCas = /*timerCtrl2.IsEnabled =*/ true;
         }
 
         /// <summary>
@@ -65,7 +65,7 @@ namespace GUI_logo
         {
             RadioButton rb = (RadioButton)e.Source;
             int x = int.Parse(rb.Uid);
-            grbStav.IsEnabled = (x > 2) ? false : true;
+            //grbStav.IsEnabled = (x > 2) ? false : true;
         }
 
         /// <summary>

@@ -22,9 +22,9 @@ namespace GUI_logo
     public partial class WindowSetIn : Window
     {
         private Gpio vstup;
-        private Gpio tmp_vstup;
+        //private Gpio tmp_vstup;
         string[] funcs = new string[] { "zapni výstup ", "vypni výstup ", "blokuj výstup ","spusť časování ", "pošli sms ","prozvoň "};
-        string pripojStr;
+        //string pripojStr;
         private bool?[] out_check = new bool?[] {false, false, false, false, false, false};
         private int funcIndex;
         private string sms;
@@ -83,7 +83,7 @@ namespace GUI_logo
             else stpOuts.Visibility = Visibility.Collapsed;
             if (cmbFunc.SelectedIndex >= 4) stpTelNmb.Visibility = Visibility.Visible;
             else stpTelNmb.Visibility = Visibility.Collapsed;
-            if (cmbFunc.SelectedIndex == 4) stpSms.Visibility = Visibility.Visible;
+            if (cmbFunc.SelectedIndex == 4 || cmbFunc.SelectedIndex == 6) stpSms.Visibility = Visibility.Visible;
             else stpSms.Visibility = Visibility.Collapsed;
             funcIndex = cmbFunc.SelectedIndex;
         }

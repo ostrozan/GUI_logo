@@ -4,21 +4,21 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:GUI_logo"
-             mc:Ignorable="d" Height="254" Width="265">
+             mc:Ignorable="d" Height="75" Width="265">
     <Grid Margin="0">
         <local:TimePicker  x:Name="timerCtrl1" HorizontalAlignment="Center" Margin="0,34,0,0" VerticalAlignment="Top" HorizontalContentAlignment="Center"/>
-        <GroupBox Header="Po uplynutí času" x:Name="grbPrepinac" Margin="19,0,18.226,13" HorizontalAlignment="Center" VerticalAlignment="Bottom" Padding="0" Width="239">
+        <!--GroupBox Header="Po uplynutí času" x:Name="grbPrepinac" Margin="19,0,18.226,13" HorizontalAlignment="Center" VerticalAlignment="Bottom" Padding="0" Width="239">
             <StackPanel RadioButton.Checked="stpPrepinac_Checked"  x:Name="stpPrepinac" Orientation="Vertical" Margin="0,10,0,0">
                 <RadioButton Name="rbZap" Uid="0" Content="zapni výstup" IsChecked="{Binding Path=IsSwitchOn,Mode=TwoWay}"/>
                 <RadioButton Name="rbVyp" Uid="1" Content="vypni výstup" IsChecked="{Binding Path=IsSwitchOff,Mode=TwoWay}"/>
                 <RadioButton Name="rbChng" Uid="2" Content="změň stav výstupu" IsChecked="{Binding Path=IsAnyChange,Mode=TwoWay}" />
-                <!--RadioButton Name="rbSms" Uid="3" Content="pošli sms" />
-                <RadioButton Name="rbRng" Uid="4" Content="prozvoň" /-->
+                <RadioButton Name="rbSms" Uid="3" Content="pošli sms" />
+                <RadioButton Name="rbRng" Uid="4" Content="prozvoň" />
 
-            </StackPanel>
+            </>
 
-        </GroupBox>
-        <GroupBox Name="grbStav" Header="Stav změny" Margin="0,0,0,26" HorizontalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" >
+        </-->
+        <!--GroupBox Name="grbStav" Header="Stav změny" Margin="0,0,0,26" HorizontalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" >
             <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" >
                 <StackPanel Orientation="Horizontal">
                     <RadioButton Name="rbTrvale" Uid="0" Content="trvale" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="15,10,0,0" Checked="rbTrvale_Checked"/>
@@ -28,7 +28,7 @@
                 <local:TimePicker x:Name="timerCtrl2" HorizontalAlignment="Center" Margin="-3,10,0,7" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
 
             </StackPanel>
-        </GroupBox>
+        </-->
         <TextBlock Text="Čas" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" Margin="0,10,0,0" FontSize="14"/>
     </Grid>
 </UserControl>

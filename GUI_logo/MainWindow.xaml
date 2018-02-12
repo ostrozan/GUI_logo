@@ -5,29 +5,29 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GUI_logo"
         mc:Ignorable="d"
-        Title="Smart relay 1.0" Height="509" Width="698" Loaded="Window_Loaded" PreviewMouseLeftButtonDown="Window_PreviewMouseLeftButtonDown">
-    <Grid x:Name="mainGrid">
+        Title="ArDaLu configurator 1.0" Width="612.245" Loaded="Window_Loaded" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Height="440" >
+    <Grid x:Name="mainGrid" Margin="0">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="450.113"/>
+            <ColumnDefinition Width="auto"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="100*"/>
-            <RowDefinition Height="359*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <Menu Name="mainmenu" Height="20" VerticalAlignment="Top" Grid.ColumnSpan="2" Margin="0" Grid.RowSpan="2" GotFocus="mainmenu_GotFocus">
+        <Menu Name="mainmenu" Height="20" VerticalAlignment="Top" GotFocus="mainmenu_GotFocus" Width="300" HorizontalAlignment="Left">
 
             <MenuItem Header="Projekt">
                 <MenuItem.CommandBindings>
                     <CommandBinding Command="New" CanExecute="CanExecute" Executed ="new_Executed"/>
                     <CommandBinding Command="Save" CanExecute="CanExecute" Executed ="save_Executed"/>
                     <CommandBinding Command="Open" CanExecute="CanExecute" Executed="open_Executed"/>
-                    
+
                 </MenuItem.CommandBindings>
                 <MenuItem Name="new" Command="New"/>
-                
+
                 <MenuItem Name="save" Command="Save"/>
                 <MenuItem Name="open" Command="Open">
                     <ListBox Name="lbProjects" SelectionChanged="lbProjects_SelectionChanged"/>
@@ -35,36 +35,90 @@
             </MenuItem>
 
         </Menu>
-        <Canvas Name="mainCanvas" Grid.ColumnSpan="2" Margin="0,0,129.019,100" Grid.RowSpan="2">
-
-        </Canvas>
-        <Grid x:Name="gridBody" Grid.Row="1" Margin="80,95.075,81.509,94.094" Background="#FFE0D8D8" Width="400" Height="270" Grid.RowSpan="2">
+        <Grid x:Name="gridBody" Grid.Row="2" Margin="22,5.17,0,67.264" Background="#FFE0D8D8" Width="386" VerticalAlignment="Center" HorizontalAlignment="Left" Height="317">
             <Grid.RowDefinitions>
-                <RowDefinition Height="25*"/>
-                <RowDefinition Height="50*"/>
-                <RowDefinition Height="25*"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
-            <StackPanel x:Name="stPanelOuts" Orientation="Horizontal" Background="#FFC9CFD3" Uid="out">
-                <local:Gpio x:Name="Out1" Uid="0" MouseEnter="Out_MouseEnter" MouseLeave="Out_MouseLeave" MouseDoubleClick="GGpio_Dbl_click"/>
-                <local:Gpio x:Name="Out2" Uid="1" MouseEnter="Out_MouseEnter" MouseLeave="Out_MouseLeave" MouseDoubleClick="GGpio_Dbl_click"/>
-                <local:Gpio x:Name="Out3" Uid="2" MouseEnter="Out_MouseEnter" MouseLeave="Out_MouseLeave" MouseDoubleClick="GGpio_Dbl_click"/>
-                <local:Gpio x:Name="Out4" Uid="3" MouseEnter="Out_MouseEnter" MouseLeave="Out_MouseLeave" MouseDoubleClick="GGpio_Dbl_click"/>
-                <local:Gpio x:Name="Out5" Uid="4" MouseEnter="Out_MouseEnter" MouseLeave="Out_MouseLeave" MouseDoubleClick="GGpio_Dbl_click" />
-                <local:Gpio x:Name="Out6" Uid="5" MouseEnter="Out_MouseEnter" MouseLeave="Out_MouseLeave" MouseDoubleClick="GGpio_Dbl_click"/>
+
+            <StackPanel x:Name="stPanelOuts" Orientation="Horizontal" Background="#FFC9CFD3" Uid="out" Margin="0">
+                <local:Gpio x:Name="Out1" Uid="0" MouseEnter="Out_MouseEnter" MouseLeave="Out_MouseLeave" MouseDoubleClick="GGpio_Dbl_click" Margin="12,5,0,0"/>
+                <local:Gpio x:Name="Out2" Uid="1" MouseEnter="Out_MouseEnter" MouseLeave="Out_MouseLeave" MouseDoubleClick="GGpio_Dbl_click" Margin="0,5,0,0"/>
+                <local:Gpio x:Name="Out3" Uid="2" MouseEnter="Out_MouseEnter" MouseLeave="Out_MouseLeave" MouseDoubleClick="GGpio_Dbl_click" Margin="0,5,0,0"/>
+                <local:Gpio x:Name="Out4" Uid="3" MouseEnter="Out_MouseEnter" MouseLeave="Out_MouseLeave" MouseDoubleClick="GGpio_Dbl_click" Margin="0,5,0,0"/>
+                <local:Gpio x:Name="Out5" Uid="4" MouseEnter="Out_MouseEnter" MouseLeave="Out_MouseLeave" MouseDoubleClick="GGpio_Dbl_click" Margin="0,5,0,0.283" Width="62" />
+                <local:Gpio x:Name="Out6" Uid="5" MouseEnter="Out_MouseEnter" MouseLeave="Out_MouseLeave" MouseDoubleClick="GGpio_Dbl_click" Margin="0,5,0,0"/>
             </StackPanel>
-            <StackPanel  x:Name="stPanelIns" Grid.Row="2" Orientation="Horizontal" Margin="0" Background="#FFC9CFD3" Uid="in">
-                <local:Gpio x:Name="In1" Uid="0" MouseEnter="Out_MouseEnter" MouseLeave="Out_MouseLeave" MouseDoubleClick="GGpio_Dbl_click" />
-                <local:Gpio x:Name="In2" Uid="1" MouseEnter="Out_MouseEnter" MouseLeave="Out_MouseLeave" MouseDoubleClick="GGpio_Dbl_click"/>
-                <local:Gpio x:Name="In3" Uid="2" MouseEnter="Out_MouseEnter" MouseLeave="Out_MouseLeave" MouseDoubleClick="GGpio_Dbl_click" />
-                <local:Gpio x:Name="In4" Uid="3" MouseEnter="Out_MouseEnter" MouseLeave="Out_MouseLeave" MouseDoubleClick="GGpio_Dbl_click" />
+            <TextBlock x:Name="tbCounter1" Height="15" Text="{Binding texts_counters[0]}" Margin="42,-15,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.245,4" Width="30" HorizontalAlignment="Left" Grid.Row="1"/>
+            <TextBlock x:Name="tbCounter2" Height="15" Text="{Binding texts_counters[1]}" Margin="103,-15,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.245,4" HorizontalAlignment="Left" Width="30" Grid.Row="1"/>
+            <TextBlock x:Name="tbCounter3" Height="15" Text="{Binding texts_counters[2]}" Margin="167,-15,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.245,4" Grid.Row="1" Width="30" HorizontalAlignment="Left"/>
+            <TextBlock x:Name="tbCounter4" Height="15" Text="{Binding texts_counters[3]}" Margin="229,-15,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.245,4" Grid.Row="1" Width="30" HorizontalAlignment="Left"/>
+            <TextBlock x:Name="tbCounter5" Height="15" Text="{Binding texts_counters[4]}" Margin="290,-15,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.245,4" Grid.Row="1" Width="30" HorizontalAlignment="Left"/>
+            <TextBlock x:Name="tbCounter6" Height="15" Text="{Binding texts_counters[5]}" Margin="411,0,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.245,4" Grid.Row="1" Width="30" HorizontalAlignment="Left"/>
+            <StackPanel  x:Name="stPanelIns" Grid.Row="2" Orientation="Horizontal" Margin="0" Background="#FFC9CFD3" Uid="in" Grid.RowSpan="2" VerticalAlignment="Bottom">
+                <local:Gpio x:Name="In1" Uid="0" MouseEnter="Out_MouseEnter" MouseLeave="Out_MouseLeave" MouseDoubleClick="GGpio_Dbl_click" Loaded="In1_Loaded" Margin="73,5,0,0" />
+                <local:Gpio x:Name="In2" Uid="1" MouseEnter="Out_MouseEnter" MouseLeave="Out_MouseLeave" MouseDoubleClick="GGpio_Dbl_click" Margin="0,5,0,0"/>
+                <local:Gpio x:Name="In3" Uid="2" MouseEnter="Out_MouseEnter" MouseLeave="Out_MouseLeave" MouseDoubleClick="GGpio_Dbl_click" Margin="0,5,0,0" />
+                <local:Gpio x:Name="In4" Uid="3" MouseEnter="Out_MouseEnter" MouseLeave="Out_MouseLeave" MouseDoubleClick="GGpio_Dbl_click" Margin="0,5,0,0" />
             </StackPanel>
-            <RadioButton x:Name="rbAuto" Content="Auto" HorizontalAlignment="Left" Margin="19,26.981,0,0" Grid.Row="1" VerticalAlignment="Top" Checked="rbAuto_Checked" IsChecked="True"/>
-            <RadioButton x:Name="rbHand" Content="Ručně" HorizontalAlignment="Left" Margin="19,57.981,0,0" Grid.Row="1" VerticalAlignment="Top" Checked="rbHand_Checked"/>
-            <RadioButton x:Name="rbParam" Content="Změna parametrů" HorizontalAlignment="Left" Margin="19,88.981,0,0" Grid.Row="1" VerticalAlignment="Top" Checked="rbParam_Checked"/>
+            <RadioButton x:Name="rbAuto" Content="Auto" HorizontalAlignment="Left" Margin="19,26.66,0,0" Grid.Row="1" VerticalAlignment="Top" Checked="rbAuto_Checked" IsChecked="True"/>
+            <RadioButton x:Name="rbHand" Content="Ručně" HorizontalAlignment="Left" Margin="19,57.66,0,0" Grid.Row="1" VerticalAlignment="Top" Checked="rbHand_Checked"/>
+            <RadioButton x:Name="rbParam" Content="Změna parametrů" HorizontalAlignment="Left" Margin="19,93,0,24" Grid.Row="1" VerticalAlignment="Top" Checked="rbParam_Checked"/>
+            <Button x:Name="btnUpload" BorderThickness="2" ToolTip="upload data" HorizontalAlignment="Left" Margin="350,31,0,0" Grid.Row="1" VerticalAlignment="Top" Width="30" Height="30" Click="btnUpload_Click" Background="#FFD9E8B2">
+                <Button.BorderBrush>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FF4D4949" Offset="1"/>
+                        <GradientStop Color="#FFF3FAF8"/>
+                    </LinearGradientBrush>
+                </Button.BorderBrush>
+                <Image Source="pack://application:,,,/Images/upload.png" Margin="0"/>
+            </Button>
+            <!--Button x:Name="btnDownload" BorderThickness="2"  IsEnabled="False" ToolTip="download data" HorizontalAlignment="Left" Margin="350,77,0,0" Grid.Row="1" VerticalAlignment="Top" Width="30" Height="30" Click="btnDownload_Click" Background="#FFD9E8B2">
+                <Button.BorderBrush>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FF444141" Offset="1"/>
+                        <GradientStop Color="#FFD7CBCB"/>
+                    </LinearGradientBrush>
+                </Button.BorderBrush>
+                <Image Source="pack://application:,,,/Images/download.png" OpacityMask="#FFD9E8B2" RenderTransformOrigin="0.645,1.688"/>
+            </-->
+            <!--Ellipse x:Name="blikacka" Fill="#FFF4F4F5" HorizontalAlignment="Left" Margin="359,40.302,0,42.981" Stroke="Black" Width="10" RenderTransformOrigin="0.283,1.972" Grid.Row="2"/-->
+            <TextBox x:Name="tblDateTime" BorderThickness="3" HorizontalAlignment="Left" Margin="152,30.717,0,0" Grid.Row="1" TextWrapping="Wrap" Text="{Binding textMsg[0]}"  VerticalAlignment="Top" FontSize="18" Foreground="#FF09072F" IsEnabled="False" Width="179" Background="#FFAAF6F0" IsReadOnlyCaretVisible="True">
+                <TextBox.BorderBrush>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="Black" Offset="0"/>
+                        <GradientStop Color="White" Offset="1"/>
+                    </LinearGradientBrush>
+                </TextBox.BorderBrush>
+            </TextBox>
+            <Button x:Name="btnAktCas" BorderThickness="2"  Content="aktualizovat čas" HorizontalAlignment="Left" Margin="203,8,0,0" Grid.Row="1" VerticalAlignment="Top" Width="75" FontSize="9" Click="BtnAktCas_Click">
+                <Button.BorderBrush>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FF3B3636" Offset="1"/>
+                        <GradientStop Color="White"/>
+                        <GradientStop Color="#FF4C4C4C" Offset="0.941"/>
+                    </LinearGradientBrush>
+                </Button.BorderBrush>
+            </Button>
+            <Label Grid.Row="1" Margin="195,0,0,40" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" VerticalAlignment="Bottom">t1</Label>
+            <Label HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Margin="195,82,0,0">t2</Label>
+            <TextBlock Name="tblT1" Text="{Binding temperatures[0]}" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="222,0,0,44" FontSize="14" Foreground="#FF1F3998"/>
+            <TextBlock Name="tblT2" Text="{Binding temperatures[1]}" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="222,0,0,16" Foreground="#FF1F3998" FontSize="14"/>
+
         </Grid>
-        <Button x:Name="btnSerCom" Content="Připojit" Grid.Column="1" HorizontalAlignment="Center" Margin="27.491,23,27.019,0" Grid.Row="2" VerticalAlignment="Top" Width="75" Click="btnSerCom_Click"/>
-        <ComboBox x:Name="cmbComPorts" Grid.Column="1" HorizontalAlignment="Center" Margin="0.491,93,0,0" Grid.Row="2" VerticalAlignment="Top" RenderTransformOrigin="-0.246,0.75" SelectionChanged="cmbComPorts_SelectionChanged" SelectedIndex="0"/>
-        <TextBlock HorizontalAlignment="Left" Margin="99,51,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16">Projekt :</TextBlock>
-        <TextBlock x:Name="tbProjName" HorizontalAlignment="Left" Margin="170,51,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16"/>
+        <Button x:Name="btnSerCom" Content="Připojit" HorizontalAlignment="Center" Margin="35,235.17,20.981,0" Grid.Row="2" VerticalAlignment="Top" Width="75" Click="btnSerCom_Click" Height="18" Grid.Column="1"/>
+        <ComboBox x:Name="cmbComPorts" HorizontalAlignment="Center" Margin="46,0,30.981,175.264" Grid.Row="2" VerticalAlignment="Bottom" RenderTransformOrigin="-0.246,0.75" SelectionChanged="cmbComPorts_SelectionChanged" SelectedIndex="0" Height="21" Grid.Column="1" Width="75" HorizontalContentAlignment="Center"/>
+        <TextBlock HorizontalAlignment="Left" Margin="34,28.17,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16" Height="21" Width="58">Projekt :</TextBlock>
+        <TextBlock x:Name="tbProjName" HorizontalAlignment="Left" Margin="113,28.17,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16" Height="21"/>
+        <Rectangle   Grid.Column="1" Fill="#FFF4F4F5" HorizontalAlignment="Center" Height="130" Margin="26.981,6.17,26.075,0" Grid.Row="2" Stroke="Black" VerticalAlignment="Top" Width="100" MouseLeftButtonDown="Rectangle_Click"/>
+        <TextBlock Grid.Column="1" HorizontalAlignment="Center" Margin="0,9,0,0" Grid.Row="2" TextWrapping="Wrap" Text="GSM" VerticalAlignment="Top" RenderTransformOrigin="0.115,0.349" FontSize="20"/>
+        <ProgressBar Orientation="Vertical" Grid.Column="1" HorizontalAlignment="Left" Height="91" Margin="108.981,40.17,0,0" Grid.Row="2" VerticalAlignment="Top" Width="13" Maximum="32" SmallChange="1">
+
+        </ProgressBar>
+        <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="100,35.17,0,0" Grid.Row="2" TextWrapping="Wrap" Text="signal" VerticalAlignment="Top" Height="101" Width="7" FontSize="12"/>
+        <!--TextBlock x:Name="tblRecData" Margin="3.981,0,0,67.264" Grid.Row="2" TextWrapping="Wrap" Text="{Binding textMsg[1]}" VerticalAlignment="Bottom" RenderTransformOrigin="0.727,1.203" Height="15" Grid.Column="1" Width="101" HorizontalAlignment="Left"/-->
+
+
     </Grid>
 </Window>

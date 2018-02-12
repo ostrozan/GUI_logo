@@ -29,11 +29,19 @@ namespace GUI_logo
         public In GpIn { get; set; } = new In();
         public SwitchClock SwitchingClock { get; set; } = new SwitchClock();
         public ProgTimer ProgTim { get; set; } = new ProgTimer();
+        public Thermostat Therm { get; set; } = new Thermostat();
+        public BitmapImage watchImg;
+        public BitmapImage stopwatchImg;
+        public BitmapImage tempMeterImg;
+
+        public Image img = new Image() { Width = 15, Height = 15 };
+        public TextBlock tblCounter = new TextBlock() { Height = 15, Width = 40, Margin = new Thickness(5,0,0,0),};
+        public Binding binding = new Binding();
         public Gpio()
         {
             InitializeComponent();
             Popis = this.tbPopis.Text;
-         
+
         }
 
     }

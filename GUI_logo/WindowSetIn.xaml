@@ -11,20 +11,21 @@
             <TextBlock x:Name="tbFunc" Text="Funkce" Canvas.Left="42" Canvas.Top="24"/>
             <ComboBox Name="cmbFunc" RenderTransformOrigin="1.27,1.243" Height="auto" Canvas.Left="112" Width="auto" Canvas.Top="17" SelectionChanged="cmbFunc_SelectionChanged">
                 <ComboBoxItem Content="sepnout výstup"/>
-                <ComboBoxItem Content="vypnoutt výstup"/>
-                <ComboBoxItem Content="blokovat výstup"/>
+                <ComboBoxItem Content="vypnout výstup"/>
+                <ComboBoxItem Content="změnit výstup"/>
                 <ComboBoxItem Content="spustit časování"/>
                 <ComboBoxItem Content="poslat sms "/>
                 <ComboBoxItem Content="prozvonit "/>
+                <ComboBoxItem Content="sms+prozvonit" HorizontalAlignment="Left" Width="135.849056603774"/>
             </ComboBox>
             <StackPanel Name="stpOuts" Margin="91,55,0,0" CheckBox.Checked="stpOuts_Checked" 
                       CheckBox.Unchecked="stpOuts_Unchecked"  HorizontalAlignment="Center" d:IsHidden="True">
                 <CheckBox Content="rele1" Uid="0" />
                 <CheckBox Content="rele2" Uid="1"/>
-                <CheckBox Content="out1" Uid="2"/>
-                <CheckBox Content="out2" Uid="3"/>
-                <CheckBox Content="out3" Uid="4"/>
-                <CheckBox Content="out4" Uid="5"/>
+                <CheckBox Content="out3" Uid="2"/>
+                <CheckBox Content="out4" Uid="3"/>
+                <CheckBox Content="out5" Uid="4"/>
+                <CheckBox Content="out6" Uid="5"/>
             </StackPanel>
             <StackPanel Name="stpTelNmb" Orientation="Vertical" Margin="102,84,0,0" HorizontalAlignment="Center">
                 <TextBlock Canvas.Left="92" Canvas.Top="69" HorizontalAlignment="Center"><Run Text="tel. číslo"/></TextBlock>
