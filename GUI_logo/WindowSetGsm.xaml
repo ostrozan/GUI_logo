@@ -58,6 +58,7 @@
         <TextBlock HorizontalAlignment="Left" Margin="62,76,0,0" TextWrapping="Wrap" Text="Telefonní čísla" VerticalAlignment="Top"/>
         <Button x:Name="btnOk" Content="uložit" HorizontalAlignment="Left" Margin="25,334,0,0" VerticalAlignment="Top" Width="75" FontSize="18" Click="btnOk_Click"/>
         <Button x:Name="btnCancel" Content="zrušit" HorizontalAlignment="Left" Margin="260,334,0,0" VerticalAlignment="Top" Width="75" FontSize="18" Click="btnCancel_Click"/>
+        <CheckBox x:Name="chbGsmConfirmEn" Content="Povolit potvrzení sms" HorizontalAlignment="Left" Margin="42,40,0,0" VerticalAlignment="Top" Checked="chbGsmConfirmEn_Checked"/>
 
     </Grid>
 </Window>

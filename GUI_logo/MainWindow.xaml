@@ -17,7 +17,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <Menu Name="mainmenu" Height="20" VerticalAlignment="Top" GotFocus="mainmenu_GotFocus" Width="300" HorizontalAlignment="Left">
+        <Menu Name="mainmenu" Height="20" VerticalAlignment="Top"  Width="300" HorizontalAlignment="Left">
 
             <MenuItem Header="Projekt">
                 <MenuItem.CommandBindings>
@@ -113,10 +113,10 @@
         <TextBlock x:Name="tbProjName" HorizontalAlignment="Left" Margin="113,28.17,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16" Height="21"/>
         <Rectangle   Grid.Column="1" Fill="#FFF4F4F5" HorizontalAlignment="Center" Height="130" Margin="26.981,6.17,26.075,0" Grid.Row="2" Stroke="Black" VerticalAlignment="Top" Width="100" MouseLeftButtonDown="Rectangle_Click"/>
         <TextBlock Grid.Column="1" HorizontalAlignment="Center" Margin="0,9,0,0" Grid.Row="2" TextWrapping="Wrap" Text="GSM" VerticalAlignment="Top" RenderTransformOrigin="0.115,0.349" FontSize="20"/>
-        <ProgressBar Orientation="Vertical" Grid.Column="1" HorizontalAlignment="Left" Height="91" Margin="108.981,40.17,0,0" Grid.Row="2" VerticalAlignment="Top" Width="13" Maximum="32" SmallChange="1">
+        <ProgressBar Value="{Binding gsmSigValue[0]}" Orientation="Vertical" Grid.Column="1" HorizontalAlignment="Center" Height="60" Margin="0,66.17,0,0" Grid.Row="2" VerticalAlignment="Top" Width="62" Maximum="32" SmallChange="1">
 
         </ProgressBar>
-        <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="100,35.17,0,0" Grid.Row="2" TextWrapping="Wrap" Text="signal" VerticalAlignment="Top" Height="101" Width="7" FontSize="12"/>
+        <TextBlock Grid.Column="1" HorizontalAlignment="Center" Margin="0,40.17,0,0" Grid.Row="2" TextWrapping="Wrap" Text="signál" VerticalAlignment="Top" Height="16" Width="33" FontSize="12"/>
         <!--TextBlock x:Name="tblRecData" Margin="3.981,0,0,67.264" Grid.Row="2" TextWrapping="Wrap" Text="{Binding textMsg[1]}" VerticalAlignment="Bottom" RenderTransformOrigin="0.727,1.203" Height="15" Grid.Column="1" Width="101" HorizontalAlignment="Left"/-->
 
 

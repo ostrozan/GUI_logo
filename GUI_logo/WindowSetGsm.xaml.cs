@@ -42,6 +42,7 @@ namespace GUI_logo
             //gsmData.out6offCmd = tbxCmd6Off.Text;
             //gsmData.statusCmd = tbxCmdStatus.Text;
             gsmData.isEnabled = (bool)chbGsmEnable.IsChecked;
+             gsmData.isResponse = (bool)chbGsmConfirmEn.IsChecked;
             gsmData.telNumbers[0] = tbxTel1.Text;
             gsmData.telNumbers[1] = tbxTel2.Text;
             gsmData.telNumbers[2] = tbxTel3.Text;
@@ -85,9 +86,15 @@ namespace GUI_logo
             //tbxCmd6Off.Text = gsmData.out6offCmd;
             //tbxCmdStatus.Text = gsmData.statusCmd;
             chbGsmEnable.IsChecked = gsmData.isEnabled;
+            chbGsmConfirmEn.IsChecked = gsmData.isResponse;
             tbxTel1.Text = gsmData.telNumbers[0];
             tbxTel2.Text = gsmData.telNumbers[1];
             tbxTel3.Text = gsmData.telNumbers[2];
+        }
+
+        private void chbGsmConfirmEn_Checked(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

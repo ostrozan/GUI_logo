@@ -35,7 +35,7 @@ namespace GUI_logo
     /// </summary>
     public partial class MainWindow : Window
     {
-      
+
         DispatcherTimer timer = new DispatcherTimer();
         private List<string> folderList;
         private ObservableCollection<string> projectList = new ObservableCollection<string>();
@@ -55,8 +55,8 @@ namespace GUI_logo
         public static string projectName;
         public static ObservableCollection<string> projPaths;
         public static ObservableCollection<string> temperatures { get; set; } = new ObservableCollection<string>() { "", "" };
-        public static ObservableCollection<string> textMsg { get; set; } = new ObservableCollection<string>() { "","" };
-       
+        public static ObservableCollection<string> textMsg { get; set; } = new ObservableCollection<string>() { "", "" };
+        public static ObservableCollection<int> gsmSigValue { get; set; } = new ObservableCollection<int>() { 0 };
         //private string currFile;
         Com com;
         bool handControlEnable, changeEnable;
@@ -161,7 +161,7 @@ namespace GUI_logo
                 StackPanel stp = gpio.Parent as StackPanel;
                 int pom = int.Parse(gpio.Uid);
                 if (stp.Uid == "in")
-                {                
+                {
                     if (VSTUPY[pom] == 0)
                     {
                         VSTUPY[pom] = 1;
@@ -269,11 +269,11 @@ namespace GUI_logo
         private void btnUpload_Click(object sender, RoutedEventArgs e)
         {
             string data = "";// "#:3:100000:123456789:ahoj :#:3:010000:000000000::#:4:000000:123456789:ahoj:#:0:000111:000000000::#:1:0:0:0:1:0:1:1:0:0:%4-2%:%240-0%184-6%:#:1:1:0:0:1:1:0:1:0:0:%6-0%:%:#:0:0:0:0:0:0:0:0:0:0:%0-0%:%:#:0:1:0:0:0:0:0:0:0:0:%0-0%:%:#:1:1:0:0:1:0:1:1:0:0:%7441-120%:%:#:1:0:0:1:0:0:0:0:0:0:%0-0%:%300-9%:#";
-                              //com.send(data);
-                              //return;
-                              // string data = "D";
+                             //com.send(data);
+                             //return;
+                             // string data = "D";
             int index = 0;
-            for (int i =0;i<4;i++)
+            for (int i = 0; i < 4; i++)
             {
                 data += "D#I";
                 data += i.ToString();
@@ -283,10 +283,10 @@ namespace GUI_logo
                 {
                     data += b ? "1" : "0";
                 }
-                data += ":" + gpioData.inputs[i].Tel[0]+ ' ';
-                data += ":" + gpioData.inputs[i].Sms[0].PadLeft(21,'.')+ ":\n" ;
+                data += ":" + gpioData.inputs[i].Tel[0] + ' ';
+                data += ":" + gpioData.inputs[i].Sms[0].PadLeft(21, '.') + ":\n";
                 com.send(data);
-                
+
                 //index++
                 Thread.Sleep(200);
                 data = data.Remove(0);
@@ -320,7 +320,7 @@ namespace GUI_logo
                 data += ":";
                 data += Convert.ToString((int)(gpioData.outputs[i].alarmLo * 10));
                 data += ":";
-                data += (bool) gpioData.outputs[i].IsAlarmHi ? "1" : "0";
+                data += (bool)gpioData.outputs[i].IsAlarmHi ? "1" : "0";
                 data += ":";
                 data += (bool)gpioData.outputs[i].IsAlarmLo ? "1" : "0";
                 data += ":";
@@ -338,32 +338,33 @@ namespace GUI_logo
                 data += ":";
                 data += (bool)gpioData.outputs[i].IsAnyChange ? "1" : "0";
                 data += ":";
-                data +=  gpioData.outputs[i].controlTimes.timeOfDelay.ToString() + ':' + gpioData.outputs[i].controlTimes.timeOfPulse.ToString() + ":";
+                data += gpioData.outputs[i].controlTimes.timeOfDelay.ToString() + ':' + gpioData.outputs[i].controlTimes.timeOfPulse.ToString() + ":";
 
-                for (int ii =0; ii<4;ii++)
+                for (int ii = 0; ii < 4; ii++)
                 {
                     if (ii < gpioData.outputs[i].minuteSpan.Count)
                     {
                         data += gpioData.outputs[i].minuteSpan[ii].startTime.ToString() + ":" + gpioData.outputs[i].minuteSpan[ii].stopTime.ToString() + ":";
                     }
                     //else if (ii > 0) break;
-                    else  data += "1500" + ":" + "1500" + ":";//1500 nerealny pocet minut za den (max 1440)  - 0 potrebuju pro pulnoc
-                    
+                    else data += "1500" + ":" + "1500" + ":";//1500 nerealny pocet minut za den (max 1440)  - 0 potrebuju pro pulnoc
+
                 }
                 //data += ":";
-                
+
                 //if(index==5) data += "E#\n";
                 //else
-                    data += "\n";
+                data += "\n";
                 index++;
                 int l = data.Length;
                 com.send(data);
-                
+
                 Thread.Sleep(200);
                 data = data.Remove(0);
             }
             data = "D#G";
-            data += (gpioData.gsmData[0].isEnabled)? '1':'0';
+            data += (gpioData.gsmData[0].isEnabled) ? '1' : '0';
+            data += (gpioData.gsmData[0].isResponse) ? '1' : '0';
             data += gpioData.gsmData[0].telNumbers[0] + ' ';
             data += gpioData.gsmData[0].telNumbers[1] + ' ';
             data += gpioData.gsmData[0].telNumbers[2] + ' ';
@@ -408,8 +409,8 @@ namespace GUI_logo
             cmbComPorts.ItemsSource = com.DejPorty;
             gpioData.inputs = new ObservableCollection<In>() { In1.GpIn, In2.GpIn, In3.GpIn, In4.GpIn };
             gpioData.outputs = new ObservableCollection<Out>() { Out1.GpOut, Out2.GpOut, Out3.GpOut, Out4.GpOut, Out5.GpOut, Out6.GpOut };
-            gpioData.gsmData = new ObservableCollection<GsmData>() { new GsmData() };
-            foreach(Gpio gp in stPanelOuts.Children )
+            //gpioData.gsmData = new ObservableCollection<GsmData>();
+            foreach (Gpio gp in stPanelOuts.Children)
             {
                 gp.watchImg = new BitmapImage(new Uri("pack://application:,,,/Images/watch.bmp"));
                 gp.stopwatchImg = new BitmapImage(new Uri("pack://application:,,,/Images/stopwatch.bmp"));
@@ -420,15 +421,10 @@ namespace GUI_logo
             timer.Tick += Timer_Tick;
             timer.Start();
         }
-        private int cnt;
+
         private void Timer_Tick(object sender, EventArgs e)
         {
             int i = 0;
-            //if (++cnt > 10)
-            //{
-            //    if (blikacka.Fill == Brushes.Green) blikacka.Fill = Brushes.Yellow;
-            //    else blikacka.Fill = Brushes.Green;
-            //}
             foreach (Gpio gp in inputs)
             {
                 gp.Led.Fill = VSTUPY[i++] == 1 ? Brushes.Gold : Brushes.PaleGoldenrod;
@@ -449,9 +445,9 @@ namespace GUI_logo
         {
             if (changeEnable || handControlEnable)
             {
-                
+
                 Gpio gpio = e.Source as Gpio;
-                if (handControlEnable && gpio.Name.Contains("Out"))gpio.Background = Brushes.Green;
+                if (handControlEnable && gpio.Name.Contains("Out")) gpio.Background = Brushes.Green;
                 else if (changeEnable) gpio.Background = Brushes.Green;
             }
         }
@@ -538,13 +534,13 @@ namespace GUI_logo
             {
                 GetProjNames();
                 tbProjName.Text = projectName;
-                for (int i=0;i<4 ;i++) gpioData.inputs[i] = new In();
+                for (int i = 0; i < 4; i++) gpioData.inputs[i] = new In();
                 for (int i = 0; i < 6; i++) gpioData.outputs[i] = new Out();
                 foreach (In inp in gpioData.inputs)
                 {
                     //    inp. = new In();
 
-                     inp.funcIndex = 0;
+                    inp.funcIndex = 0;
                     inp.Sms.Add("");
                     inp.Tel.Add("000000000");
                     inp.outs.Add(false);
@@ -570,7 +566,7 @@ namespace GUI_logo
                 }
 
             }
-            }
+        }
 
         private void open_Executed(object sender, ExecutedRoutedEventArgs e)
         {
@@ -591,7 +587,7 @@ namespace GUI_logo
             handControlEnable = false;
             changeEnable = true;
             if (com.State == Com.comState.open) { btnUpload.IsEnabled = true; btnAktCas.IsEnabled = true; }
-            else {btnUpload.IsEnabled = false; btnAktCas.IsEnabled = false; }
+            else { btnUpload.IsEnabled = false; btnAktCas.IsEnabled = false; }
             //btnDownload.IsEnabled = true;
         }
 
@@ -606,19 +602,21 @@ namespace GUI_logo
             XmlSerializer ser = new XmlSerializer(typeof(GpioData));
             string filePath = new DirectoryInfo(folderList[lbProjects.SelectedIndex]).GetFiles().OrderByDescending(f => f.LastWriteTime).First().FullName;
             pathProj = filePath;
+            //GpioData gpioData1 = new GpioData();
             using (FileStream fs = new FileStream(filePath, FileMode.Open))
             {
                 try
                 {
-                    //gpioData = new GpioData();
+                    
+                    //gpioData1 = (GpioData)ser.Deserialize(fs);
                     gpioData = (GpioData)ser.Deserialize(fs);
                     tbProjName.Text = projectList[lbProjects.SelectedIndex];
-              
-                    foreach(Gpio gp in stPanelOuts.Children)
+
+                    foreach (Gpio gp in stPanelOuts.Children)
                     {
                         int idx = stPanelOuts.Children.IndexOf(gp);
                         gp.stPanel.Children.RemoveRange(0, gp.stPanel.Children.Count);
-                        if ((bool)gpioData.outputs[idx].IsUseProgTmr==true)
+                        if ((bool)gpioData.outputs[idx].IsUseProgTmr == true)
                         {
                             gp.img.Source = gp.stopwatchImg;
                             gp.stPanel.Children.Add(gp.img);
@@ -698,7 +696,7 @@ namespace GUI_logo
 
         }
 
-  
+
 
         private void Rectangle_Click(object sender, MouseButtonEventArgs e)
         {
@@ -707,11 +705,7 @@ namespace GUI_logo
         }
 
         #endregion
-        //zrusit
-        private void mainmenu_GotFocus(object sender, RoutedEventArgs e)
-        {
 
-        }
 
         #endregion
 

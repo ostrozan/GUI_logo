@@ -22,7 +22,8 @@ namespace GUI_logo
         //public string out6offCmd { get; set; }
         //public string statusCmd { get; set; }
         public bool isEnabled { get; set; }
-        public List<string> telNumbers { get; set; } = new List<string> { "000000000", "000000000", "000000000" };
+        public bool isResponse { get; set; }
+        public List<string> telNumbers { get; set; } = new List<string>();// { "000000000", "000000000", "000000000" };
 
 
         public GsmData()
