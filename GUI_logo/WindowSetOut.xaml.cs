@@ -146,37 +146,36 @@ namespace GUI_logo
             vystup.GpOut.IsUseSwitchClk = (bool)rbSpinacky.IsChecked;
             vystup.GpOut.IsUseProgTmr = (bool)rbTimer.IsChecked;
             vystup.GpOut.IsUseThermostat = (bool)rbTemp.IsChecked;
+
+            vystup.stPanel.Children.RemoveRange(0, vystup.stPanel.Children.Count);
+
             if ((bool)vystup.GpOut.IsUseSwitchClk)
             {
-                vystup.stPanel.Children.RemoveRange(0, vystup.stPanel.Children.Count);
                 vystup.img.Source = vystup.watchImg;
                 vystup.stPanel.Children.Add(vystup.img);
                 vystup.stPanel.Children.Add(vystup.tblCounter);
             }
             else if ((bool)vystup.GpOut.IsUseProgTmr)
             {
-                vystup.stPanel.Children.RemoveRange(0, vystup.stPanel.Children.Count);
                 vystup.img.Source = vystup.stopwatchImg;
                 vystup.stPanel.Children.Add(vystup.img);
                 vystup.stPanel.Children.Add(vystup.tblCounter);
             }
             else if ((bool)vystup.GpOut.IsUseThermostat)
             {
-                vystup.stPanel.Children.RemoveRange(0, vystup.stPanel.Children.Count);
                 vystup.img.Source = vystup.tempMeterImg;
                 vystup.stPanel.Children.Add(vystup.img);
             }
-
-            else
-            {
-                vystup.stPanel.Children.RemoveRange(0, vystup.stPanel.Children.Count);
+            else if ((bool)vystup.GpOut.IsInputControl)
+            {              
+                vystup.img.Source = vystup.inputImg;
+                vystup.stPanel.Children.Add(vystup.img);
             }
-            //vystup.GpOut.IsUseProgTmr = (bool)rbTimer.IsChecked;
-            //vystup.GpOut.IsTrvale = progTimer.IsTrvale;
-            //vystup.GpOut.IsNastCas = progTimer.IsNastCas;
-            //vystup.GpOut.IsSwitchOn = progTimer.IsSwitchOn;
-            //vystup.GpOut.IsSwitchOff = progTimer.IsSwitchOff;
-            //vystup.GpOut.IsAnyChange = progTimer.IsAnyChange;
+            else if ((bool)vystup.GpOut.IsExtControl)
+            {
+                vystup.img.Source = vystup.extImg;
+                vystup.stPanel.Children.Add(vystup.img);
+            }
 
             MinuteSpan ms = new MinuteSpan();
             if (switchClock != null)

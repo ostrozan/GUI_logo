@@ -219,5 +219,8 @@
   <ItemGroup>
     <Resource Include="Images\tempmeter.bmp" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\radio.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

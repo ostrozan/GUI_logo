@@ -33,6 +33,8 @@ namespace GUI_logo
         public BitmapImage watchImg;
         public BitmapImage stopwatchImg;
         public BitmapImage tempMeterImg;
+        public BitmapImage inputImg;
+        public BitmapImage extImg;
 
         public Image img = new Image() { Width = 15, Height = 15 };
         public TextBlock tblCounter = new TextBlock() { Height = 15, Width = 40, Margin = new Thickness(5,0,0,0),};

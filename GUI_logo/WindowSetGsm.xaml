@@ -7,19 +7,28 @@
         mc:Ignorable="d"
         Title="Nastavení Gsm" Height="401.264" Width="363.623" Loaded="Window_Loaded">
     <Grid Margin="0,0,-7.17,0.321">
-        <StackPanel x:Name="stpTelCislaMain" Orientation="Horizontal" HorizontalAlignment="Left" Margin="42,117,0,0" VerticalAlignment="Top" Width="100">
+        <StackPanel Name="stpOutselect"  HorizontalAlignment="Left" VerticalAlignment="Top" Margin="78,226,0,0">
+            <RadioButton Name="rbOutSel1" Uid="0" Content="rele1"/>
+            <RadioButton Name="rbOutSel2" Uid="1" Content="rele2"/>
+            <RadioButton Name="rbOutSel3" Uid="2" Content="out3"/>
+            <RadioButton Name="rbOutSel4" Uid="3" Content="out4"/>
+            <RadioButton Name="rbOutSel5" Uid="4" Content="out5"/>
+            <RadioButton Name="rbOutSel6" Uid="5" Content="out6"/>
+        </StackPanel>
+        <TextBox Name="tbxTel" PreviewTextInput="stpTboxes_PreviewTextInput" HorizontalContentAlignment="Stretch" HorizontalAlignment="Left" Height="20" Margin="42,115,0,236"/>
+        <!--StackPanel x:Name="stpTelCislaMain" Orientation="Horizontal" HorizontalAlignment="Left" Margin="42,117,0,0" VerticalAlignment="Top" Width="100">
             <StackPanel x:Name="stpTblocks" Orientation="Vertical">
-                <TextBlock Text="číslo 1"/>
-                <TextBlock Text="číslo 2"/>
-                <TextBlock Text="číslo 3"/>
+                <TextBox IsReadOnly="True" Text="číslo 1"/>
+                <TextBox IsReadOnly="True" Text="číslo 2"/>
+                <TextBox IsReadOnly="True" Text="číslo 3"/>
             </StackPanel>
             <StackPanel PreviewTextInput="stpTboxes_PreviewTextInput" x:Name="stpTboxes" Orientation="Vertical" Margin="0,0,0,-0.472" Width="64">
-                <TextBox Name="tbxTel1" HorizontalContentAlignment="Stretch"/>
+                
                 <TextBox Name="tbxTel2"/>
                 <TextBox Name="tbxTel3"/>
 
             </StackPanel>
-        </StackPanel>
+        </-->
         <CheckBox x:Name="chbGsmEnable" Content="Povolit ovládání GSM" HorizontalAlignment="Left" Margin="42,21,0,0" VerticalAlignment="Top"/>
         <TextBlock HorizontalAlignment="Center" Margin="220,21,8.83,0" TextWrapping="Wrap" Text="Příkazy - seznam" VerticalAlignment="Top" Width="128"/>
         <StackPanel x:Name="stpPrikazyMain" Orientation="Horizontal" HorizontalAlignment="Left" Margin="220,61,0,0" VerticalAlignment="Top">
@@ -55,10 +64,11 @@
                 <TextBlock x:Name="tbxCmdStatus" Margin="5,3,0,0" Height="16" Text="???" FontWeight="Bold"/>
             </StackPanel>
         </StackPanel>
-        <TextBlock HorizontalAlignment="Left" Margin="62,76,0,0" TextWrapping="Wrap" Text="Telefonní čísla" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="62,76,0,0" TextWrapping="Wrap" Text="Telefonní číslo" VerticalAlignment="Top"/>
         <Button x:Name="btnOk" Content="uložit" HorizontalAlignment="Left" Margin="25,334,0,0" VerticalAlignment="Top" Width="75" FontSize="18" Click="btnOk_Click"/>
         <Button x:Name="btnCancel" Content="zrušit" HorizontalAlignment="Left" Margin="260,334,0,0" VerticalAlignment="Top" Width="75" FontSize="18" Click="btnCancel_Click"/>
         <CheckBox x:Name="chbGsmConfirmEn" Content="Povolit potvrzení sms" HorizontalAlignment="Left" Margin="42,40,0,0" VerticalAlignment="Top" Checked="chbGsmConfirmEn_Checked"/>
+        <TextBlock HorizontalAlignment="Left" Margin="30,190,0,0" TextWrapping="Wrap" Text="Výstup ovládaný prozvoněním (pouze číslo 1)" VerticalAlignment="Top" Height="31" Width="150"/>
 
     </Grid>
 </Window>

@@ -20,6 +20,7 @@ namespace GUI_logo
     public partial class WindowSetGsm : Window
     {
         private GsmData gsmData;
+        
         public WindowSetGsm(GsmData gsmData)
         {
             InitializeComponent();
@@ -28,24 +29,16 @@ namespace GUI_logo
 
         private void btnOk_Click(object sender, RoutedEventArgs e)
         {
-            //gsmData.out1onCmd = tbxCmd1On.Text;
-            //gsmData.out1offCmd = tbxCmd1Off.Text;
-            //gsmData.out2onCmd = tbxCmd2On.Text;
-            //gsmData.out2offCmd = tbxCmd2Off.Text;
-            //gsmData.out3onCmd = tbxCmd3On.Text;
-            //gsmData.out3offCmd = tbxCmd3Off.Text;
-            //gsmData.out4onCmd = tbxCmd4On.Text;
-            //gsmData.out4offCmd = tbxCmd4Off.Text;
-            //gsmData.out5onCmd = tbxCmd5On.Text;
-            //gsmData.out5offCmd = tbxCmd5Off.Text;
-            //gsmData.out6onCmd = tbxCmd6On.Text;
-            //gsmData.out6offCmd = tbxCmd6Off.Text;
-            //gsmData.statusCmd = tbxCmdStatus.Text;
+
             gsmData.isEnabled = (bool)chbGsmEnable.IsChecked;
              gsmData.isResponse = (bool)chbGsmConfirmEn.IsChecked;
-            gsmData.telNumbers[0] = tbxTel1.Text;
-            gsmData.telNumbers[1] = tbxTel2.Text;
-            gsmData.telNumbers[2] = tbxTel3.Text;
+            gsmData.telNumber = tbxTel.Text;
+            //gsmData.telNumbers[1] = tbxTel2.Text;
+            //gsmData.telNumbers[2] = tbxTel3.Text;
+            foreach(RadioButton rb in stpOutselect.Children)
+            {
+                if ((bool)rb.IsChecked) gsmData.outNmb = rb.Uid;
+            }
             Close();
 
         }
@@ -72,24 +65,16 @@ namespace GUI_logo
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            //tbxCmd1On.Text =gsmData.out1onCmd;
-            //tbxCmd1Off.Text = gsmData.out1offCmd;
-            //tbxCmd2On.Text = gsmData.out2onCmd;
-            //tbxCmd2Off.Text = gsmData.out2offCmd;
-            //tbxCmd3On.Text = gsmData.out3onCmd;
-            //tbxCmd3Off.Text = gsmData.out3offCmd;
-            //tbxCmd4On.Text = gsmData.out4onCmd;
-            //tbxCmd4Off.Text = gsmData.out4offCmd;
-            //tbxCmd5On.Text = gsmData.out5onCmd;
-            //tbxCmd5Off.Text = gsmData.out5offCmd;
-            //tbxCmd6On.Text = gsmData.out6onCmd;
-            //tbxCmd6Off.Text = gsmData.out6offCmd;
-            //tbxCmdStatus.Text = gsmData.statusCmd;
+
             chbGsmEnable.IsChecked = gsmData.isEnabled;
             chbGsmConfirmEn.IsChecked = gsmData.isResponse;
-            tbxTel1.Text = gsmData.telNumbers[0];
-            tbxTel2.Text = gsmData.telNumbers[1];
-            tbxTel3.Text = gsmData.telNumbers[2];
+            tbxTel.Text = gsmData.telNumber;
+            //tbxTel2.Text = gsmData.telNumbers[1];
+            //tbxTel3.Text = gsmData.telNumbers[2];
+            foreach (RadioButton rb in stpOutselect.Children)
+            {
+                if (rb.Uid==gsmData.outNmb)rb.IsChecked=true;
+            }
         }
 
         private void chbGsmConfirmEn_Checked(object sender, RoutedEventArgs e)

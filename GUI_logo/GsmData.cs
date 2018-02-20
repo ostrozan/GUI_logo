@@ -23,8 +23,8 @@ namespace GUI_logo
         //public string statusCmd { get; set; }
         public bool isEnabled { get; set; }
         public bool isResponse { get; set; }
-        public List<string> telNumbers { get; set; } = new List<string>();// { "000000000", "000000000", "000000000" };
-
+        public string telNumber { get; set; }// { "000000000", "000000000", "000000000" };
+        public string outNmb;
 
         public GsmData()
         {

@@ -268,10 +268,8 @@ namespace GUI_logo
 
         private void btnUpload_Click(object sender, RoutedEventArgs e)
         {
-            string data = "";// "#:3:100000:123456789:ahoj :#:3:010000:000000000::#:4:000000:123456789:ahoj:#:0:000111:000000000::#:1:0:0:0:1:0:1:1:0:0:%4-2%:%240-0%184-6%:#:1:1:0:0:1:1:0:1:0:0:%6-0%:%:#:0:0:0:0:0:0:0:0:0:0:%0-0%:%:#:0:1:0:0:0:0:0:0:0:0:%0-0%:%:#:1:1:0:0:1:0:1:1:0:0:%7441-120%:%:#:1:0:0:1:0:0:0:0:0:0:%0-0%:%300-9%:#";
-                             //com.send(data);
-                             //return;
-                             // string data = "D";
+            string data = "";
+
             int index = 0;
             for (int i = 0; i < 4; i++)
             {
@@ -365,9 +363,10 @@ namespace GUI_logo
             data = "D#G";
             data += (gpioData.gsmData[0].isEnabled) ? '1' : '0';
             data += (gpioData.gsmData[0].isResponse) ? '1' : '0';
-            data += gpioData.gsmData[0].telNumbers[0] + ' ';
-            data += gpioData.gsmData[0].telNumbers[1] + ' ';
-            data += gpioData.gsmData[0].telNumbers[2] + ' ';
+            data += gpioData.gsmData[0].telNumber + ' ';
+            //data += gpioData.gsmData[0].telNumbers[1] + ' ';
+            //data += gpioData.gsmData[0].telNumbers[2] + " :";
+            data += gpioData.gsmData[0].outNmb;
             data += "E#\n";
             com.send(data);
             Thread.Sleep(200);
@@ -415,6 +414,8 @@ namespace GUI_logo
                 gp.watchImg = new BitmapImage(new Uri("pack://application:,,,/Images/watch.bmp"));
                 gp.stopwatchImg = new BitmapImage(new Uri("pack://application:,,,/Images/stopwatch.bmp"));
                 gp.tempMeterImg = new BitmapImage(new Uri("pack://application:,,,/Images/tempmeter.bmp"));
+                gp.inputImg = new BitmapImage(new Uri("pack://application:,,,/Images/Input.bmp"));
+                gp.extImg = new BitmapImage(new Uri("pack://application:,,,/Images/radio.jpg"));
             }
             GetProjNames();
             timer.Interval = TimeSpan.FromMilliseconds(100);
@@ -616,7 +617,7 @@ namespace GUI_logo
                     {
                         int idx = stPanelOuts.Children.IndexOf(gp);
                         gp.stPanel.Children.RemoveRange(0, gp.stPanel.Children.Count);
-                        if ((bool)gpioData.outputs[idx].IsUseProgTmr == true)
+                        if (gpioData.outputs[idx].IsUseProgTmr == true)
                         {
                             gp.img.Source = gp.stopwatchImg;
                             gp.stPanel.Children.Add(gp.img);
@@ -626,17 +627,23 @@ namespace GUI_logo
                             //gp.binding.Source = texts_counters[idx];
                             //gp.tblCounter.SetBinding(TextBlock.TextProperty, gp.binding);
                         }
-                        if ((bool)gpioData.outputs[idx].IsUseSwitchClk == true)
+                        if (gpioData.outputs[idx].IsUseSwitchClk == true)
                         {
                             gp.img.Source = gp.watchImg;
                             gp.stPanel.Children.Add(gp.img);
                             gp.stPanel.Children.Add(gp.tblCounter);
                         }
-                        if ((bool)gpioData.outputs[idx].IsUseThermostat == true)
+                        if (gpioData.outputs[idx].IsUseThermostat == true)
                         {
                             gp.img.Source = gp.tempMeterImg;
                             gp.stPanel.Children.Add(gp.img);
                             //gp.stPanel.Children.Add(gp.tblCounter);
+                        }
+
+                        if (gpioData.outputs[idx].IsInputControl == true)
+                        {
+                            gp.img.Source = gp.inputImg;
+                            gp.stPanel.Children.Add(gp.img);
                         }
 
                     }
