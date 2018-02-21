@@ -282,7 +282,7 @@ namespace GUI_logo
                     data += b ? "1" : "0";
                 }
                 data += ":" + gpioData.inputs[i].Tel[0] + ' ';
-                data += ":" + gpioData.inputs[i].Sms[0].PadLeft(21, '.') + ":\n";
+                data += ":" + gpioData.inputs[i].Sms[0].PadLeft(21, ' ') + ":\n";
                 com.send(data);
 
                 //index++
