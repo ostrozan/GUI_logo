@@ -703,7 +703,19 @@ namespace GUI_logo
 
         }
 
+        private async Task GetEventList()
+        {
+            com.send("U#..................\n");
 
+            while(!txBuffer.Contains("event"));
+        }
+
+        private async void btnEventProtocol_Click(object sender, RoutedEventArgs e)
+        {
+            await GetEventList();
+            WindowEvent wind = new WindowEvent(com,txBuffer);
+            wind.ShowDialog();
+        }
 
         private void Rectangle_Click(object sender, MouseButtonEventArgs e)
         {

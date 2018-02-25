@@ -37,6 +37,7 @@
     <ApplicationIcon>1498821743_Smart Draw.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PresentationFramework.Aero2" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Management" />
@@ -91,6 +92,9 @@
     </Compile>
     <Compile Include="WindowCasovac.xaml.cs">
       <DependentUpon>WindowCasovac.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WindowEvent.xaml.cs">
+      <DependentUpon>WindowEvent.xaml</DependentUpon>
     </Compile>
     <Compile Include="WindowSetGsm.xaml.cs">
       <DependentUpon>WindowSetGsm.xaml</DependentUpon>
@@ -154,6 +158,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="WindowCasovac.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WindowEvent.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

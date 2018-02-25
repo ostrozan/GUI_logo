@@ -12,7 +12,7 @@ using System.Windows.Controls;
 
 namespace GUI_logo
 {
-    class Com
+    public class Com
     {
         public enum comState
         {
@@ -73,7 +73,7 @@ namespace GUI_logo
             return tmp.ToArray();
         }
 
-        private void SerialPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
+        public void SerialPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
             //string s = 
             MainWindow.txBuffer = serialPort.ReadLine();
@@ -88,7 +88,7 @@ namespace GUI_logo
             }
             else
             {
-                
+
                 if (MainWindow.txBuffer.Contains("rec")) MessageBox.Show("data upload succesful");
                 else if (MainWindow.txBuffer.Contains("Err")) MessageBox.Show("chyba přenosu dat - zkuste znovu");
                 if (MainWindow.txBuffer.Contains("flg"))
@@ -116,16 +116,20 @@ namespace GUI_logo
                 {
                     try
                     {
-                    MainWindow.textMsg[1] = MainWindow.txBuffer;
-                    //Thread.Sleep(500);
-                    int i1 = MainWindow.txBuffer.IndexOf("-") + 1;
-                    int i2 = MainWindow.txBuffer.IndexOf("<");
-                    int c2 = Convert.ToInt16(MainWindow.txBuffer.Substring(i1, i2 - i1));
-                    int c1 = Convert.ToInt16(MainWindow.txBuffer[0] - 0x30);
-                    MainWindow.texts_counters[c1] = Convert.ToString(c2 / 60).PadLeft(2, '0') + ':' + Convert.ToString(c2 % 60).PadLeft(2, '0');
+                        MainWindow.textMsg[1] = MainWindow.txBuffer;
+                        //Thread.Sleep(500);
+                        int i1 = MainWindow.txBuffer.IndexOf("-") + 1;
+                        int i2 = MainWindow.txBuffer.IndexOf("<");
+                        int c2 = Convert.ToInt16(MainWindow.txBuffer.Substring(i1, i2 - i1));
+                        int c1 = Convert.ToInt16(MainWindow.txBuffer[0] - 0x30);
+                        MainWindow.texts_counters[c1] = Convert.ToString(c2 / 60).PadLeft(2, '0') + ':' + Convert.ToString(c2 % 60).PadLeft(2, '0');
                     }
                     catch { }
 
+                }
+
+                if (MainWindow.txBuffer.Contains("tmr"))
+                {
                 }
             }
 
@@ -149,7 +153,7 @@ namespace GUI_logo
 
             char[] pole = command.ToCharArray();// new char[command.Length];
             serialPort.Write(pole, 0, command.Length);
-                    
+
         }
 
         public void OpenPort()
@@ -177,13 +181,13 @@ namespace GUI_logo
                     }
 
                 }
-               
+
             }
 
             catch (Exception e)
             {
                 MessageBox.Show(e.Message);
-              
+
             }
         }
     }
