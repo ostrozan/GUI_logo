@@ -56,14 +56,22 @@ namespace GUI_logo
         private void button1_Click(object sender, RoutedEventArgs e)
         {
             SaveFileDialog sfd = new SaveFileDialog();
-            sfd.Filter = "Text Files (*.rtf;)|*.rtf;";
+            //sfd.Filter = "Text Files (*.rtf;)|*.rtf;";
+            sfd.Filter = "Text Files (*.txt;)|*.txt;";
+            sfd.InitialDirectory = MainWindow.pathProj;
             if (sfd.ShowDialog() == true)
             {
-                using (FileStream fs = new FileStream(sfd.SafeFileName, FileMode.Create))
-                {
+                //using (FileStream fs = new FileStream(sfd.SafeFileName, FileMode.Create))
+                //{
 
-                    TextRange tr = new TextRange(document.ContentStart, document.ContentEnd);
-                    tr.Save(fs, DataFormats.Rtf);
+                //    //TextRange tr = new TextRange(document.ContentStart, document.ContentEnd);
+                //    tr.Save(fs, DataFormats.Text);
+                //}
+                using (StreamWriter outputFile = new StreamWriter(sfd.FileName))
+                {
+                    
+
+                        outputFile.WriteLine(tbMain.Text);
                 }
             }
 
@@ -84,14 +92,24 @@ namespace GUI_logo
                 string[] sx = events[i].Split(' ');
                 if(sx[0]!="65535" )
                 {
-                tr = new TextRange(par.ContentStart, par.ContentEnd);              
-                sx[6] = sx[6].PadLeft(4, '0');
-                tr.Text = sx[2]+'.'+ sx[1] + '.' + sx[0] + "   " + sx[3] + ':' + sx[4] + ':' + sx[5]+ "   ";
-                tr.Text += "výstup " + VyberVystup(Convert.ToUInt16(sx[6],16));
-                tr.Text += "  " +VyberUdalost(Convert.ToUInt16(sx[6],16));
-                par = new Paragraph(new Run(tr.Text));
-                par.Foreground = color;
-                document.Blocks.Add(par);
+                    sx[6] = sx[6].PadLeft(4, '0');
+                    UInt16 udalost = Convert.ToUInt16(sx[6], 16);
+                   
+                    
+                    string radek = sx[2] + '.' + sx[1] + '.' + sx[0] + "   " + sx[3] + ':' + sx[4] + ':' + sx[5] + "   ";
+                    if (udalost == 0) radek += "RESET ";
+                    else if (udalost > 0x100) radek += "vstup " + VyberVstup(udalost);
+                    else radek += "výstup " + VyberVystup(udalost);
+                    radek += "  " + VyberUdalost(udalost) + '\n';
+                    tbMain.Text += radek;
+                    //tr = new TextRange(par.ContentStart, par.ContentEnd);              
+                    //sx[6] = sx[6].PadLeft(4, '0');
+                    //tr.Text = sx[2]+'.'+ sx[1] + '.' + sx[0] + "   " + sx[3] + ':' + sx[4] + ':' + sx[5]+ "   ";
+                    //tr.Text += "výstup " + VyberVystup(Convert.ToUInt16(sx[6],16));
+                    //tr.Text += "  " +VyberUdalost(Convert.ToUInt16(sx[6],16));
+                    //par = new Paragraph(new Run(tr.Text));
+                    //par.Foreground = color;
+                    //document.Blocks.Add(par);
                 }
 
 
@@ -155,11 +173,27 @@ namespace GUI_logo
             return ret;
         }
 
+        private string VyberVstup(UInt16 typ_udalosti)
+        {
+            typ_udalosti &= 0xF;
+            string ret = "";
+            switch (typ_udalosti)
+            {
+                case 0x0: ret = "in 1"; break;
+                case 0x1: ret = "in 2"; break;
+                case 0x2: ret = "in 3"; break;
+                case 0x3: ret = "in 4"; break;
+            }
+
+            return ret;
+        }
+
+
         private string VyberUdalost(UInt16 typ_udalosti)
         {
             string str = "";
             UInt16 pom_typ = typ_udalosti;
-            pom_typ &= 0xF0;//horni nible
+            pom_typ &= 0xFFF0;//horni nible
             switch (pom_typ)
             {
                 case 0x10: str = "zapnut vstupem"; color = Brushes.Black; break;

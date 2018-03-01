@@ -408,7 +408,7 @@ namespace GUI_logo
             cmbComPorts.ItemsSource = com.DejPorty;
             gpioData.inputs = new ObservableCollection<In>() { In1.GpIn, In2.GpIn, In3.GpIn, In4.GpIn };
             gpioData.outputs = new ObservableCollection<Out>() { Out1.GpOut, Out2.GpOut, Out3.GpOut, Out4.GpOut, Out5.GpOut, Out6.GpOut };
-            //gpioData.gsmData = new ObservableCollection<GsmData>();
+            gpioData.gsmData = new ObservableCollection<GsmData>() { new GsmData() };
             foreach (Gpio gp in stPanelOuts.Children)
             {
                 gp.watchImg = new BitmapImage(new Uri("pack://application:,,,/Images/watch.bmp"));
@@ -719,6 +719,7 @@ namespace GUI_logo
 
         private void Rectangle_Click(object sender, MouseButtonEventArgs e)
         {
+            //if (gpioData.gsmData == null) gpioData.gsmData = new ObservableCollection<GsmData>(new );
             WindowSetGsm setGsm = new WindowSetGsm(gpioData.gsmData[0]);
             setGsm.ShowDialog();
         }

@@ -44,6 +44,7 @@ namespace GUI_logo
             
             if (!File.Exists(sfd.FileName)) File.Create(sfd.FileName);
             pathProj = tbxPath.Text = System.IO.Path.GetFullPath(sfd.FileName);
+            btnOk.Focus();
             
         }
 
