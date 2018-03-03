@@ -82,9 +82,9 @@ namespace GUI_logo
             if (MainWindow.txBuffer.Contains("dt>"))
             {
                 MainWindow.textMsg[0] = MainWindow.txBuffer.Substring(3, MainWindow.txBuffer.IndexOf('<') - 3);
-                MainWindow.temperatures[0] = MainWindow.txBuffer.Substring(MainWindow.txBuffer.IndexOf('<') + 1, 4) + " °C";
-                MainWindow.temperatures[1] = MainWindow.txBuffer.Substring(MainWindow.txBuffer.IndexOf('<') + 6, 4) + " °C";
-                MainWindow.gsmSigValue[0] = Convert.ToInt32(MainWindow.txBuffer.Substring(MainWindow.txBuffer.IndexOf('<') + 11, 2));
+                //MainWindow.temperatures[0] = MainWindow.txBuffer.Substring(MainWindow.txBuffer.IndexOf('<') + 1, 4) + " °C";
+                //MainWindow.temperatures[1] = MainWindow.txBuffer.Substring(MainWindow.txBuffer.IndexOf('<') + 6, 4) + " °C";
+                //MainWindow.gsmSigValue[0] = Convert.ToInt32(MainWindow.txBuffer.Substring(MainWindow.txBuffer.IndexOf('<') + 11, 2));
             }
             else
             {
