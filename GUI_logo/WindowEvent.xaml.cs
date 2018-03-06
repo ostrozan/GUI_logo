@@ -93,12 +93,10 @@ namespace GUI_logo
                 if(sx[0]!="65535" )
                 {
                     sx[6] = sx[6].PadLeft(4, '0');
-                    UInt16 udalost = Convert.ToUInt16(sx[6], 16);
-                   
-                    
+                    UInt16 udalost = Convert.ToUInt16(sx[6], 16);                 
                     string radek = sx[2] + '.' + sx[1] + '.' + sx[0] + "   " + sx[3] + ':' + sx[4] + ':' + sx[5] + "   ";
                     if (udalost == 0) radek += "RESET ";
-                    else if (udalost > 0x100) radek += "vstup " + VyberVstup(udalost);
+                    else if (udalost >= 0x200) radek += "vstup " + VyberVstup(udalost);
                     else radek += "výstup " + VyberVystup(udalost);
                     radek += "  " + VyberUdalost(udalost) + '\n';
                     tbMain.Text += radek;

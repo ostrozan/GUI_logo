@@ -136,7 +136,7 @@ namespace GUI_logo
             else
             {
                 Hod = x;
-                tbHod.Text = x.ToString().PadLeft(2, '0');
+                tbHod.Text.PadLeft(2, '0');
             }
         }
 
@@ -150,7 +150,7 @@ namespace GUI_logo
             else
             {
                 Min = x;
-                tbMin.Text = x.ToString().PadLeft(2, '0');
+                tbMin.Text.PadLeft(2, '0');
             }
         }
 
@@ -164,7 +164,7 @@ namespace GUI_logo
             else
             {
                 Sec = x;
-                tbSec.Text = x.ToString().PadLeft(2, '0');
+                tbSec.Text.PadLeft(2, '0');
             }
 
         }

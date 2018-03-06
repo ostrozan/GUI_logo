@@ -22,11 +22,11 @@
     <Grid>
         <Border>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <TextBox Name="tbHod" BorderBrush="White" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center" FontSize="14" GotFocus="tbHod_GotFocus" PreviewKeyDown="tbHod_PreviewKeyDown" TextChanged="tbHod_TextChanged">00</TextBox>
+                <TextBox Name="tbHod" BorderBrush="White" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center" FontSize="14" GotFocus="tbHod_GotFocus" PreviewKeyDown="tbHod_PreviewKeyDown" TextChanged="tbHod_TextChanged" Width="20">00</TextBox>
                 <TextBlock FontSize="14">:</TextBlock>
-                <TextBox Name="tbMin"  BorderBrush="White" FontSize="14" GotFocus="tbMin_GotFocus" PreviewKeyDown="tbMin_PreviewKeyDown" TextChanged="tbMin_TextChanged">00</TextBox>
+                <TextBox Name="tbMin"  BorderBrush="White" FontSize="14" GotFocus="tbMin_GotFocus" PreviewKeyDown="tbMin_PreviewKeyDown" TextChanged="tbMin_TextChanged" Width="20">00</TextBox>
                 <TextBlock FontSize="14">:</TextBlock>
-                <TextBox Name="tbSec"  BorderBrush="White" FontSize="14" GotFocus="tbSec_GotFocus" PreviewKeyDown="tbSec_PreviewKeyDown" TextChanged="tbSec_TextChanged">00</TextBox>
+                <TextBox Name="tbSec"  BorderBrush="White" FontSize="14" GotFocus="tbSec_GotFocus" PreviewKeyDown="tbSec_PreviewKeyDown" TextChanged="tbSec_TextChanged" Width="20">00</TextBox>
                 <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <Button x:Name="btUp" FontSize="6" HorizontalAlignment="Center" Click="btUp_Click" RenderTransformOrigin="0.5,0" VerticalContentAlignment="Center" Margin="0,1,0,0" Padding="1,-1,1,1" Height="9" VerticalAlignment="Top" Background="#FFFFF7F7">˄</Button>
                     <Button x:Name="btDn" FontSize="6" Click="btDn_Click" VerticalContentAlignment="Stretch" Padding="1,0,1,1" HorizontalContentAlignment="Center" Height="9" VerticalAlignment="Bottom" Margin="1" Background="#FFFFF7F7">˅</Button>
