@@ -177,11 +177,13 @@ namespace GUI_logo
         private void btUp_Click(object sender, RoutedEventArgs e)
         {
             UpCount();
+            e.Handled = true;
         }
 
         private void btDn_Click(object sender, RoutedEventArgs e)
         {
             DnCount();
+            e.Handled = true;
         }
 
 

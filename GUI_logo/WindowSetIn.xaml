@@ -31,9 +31,9 @@
                 <TextBlock Canvas.Left="92" Canvas.Top="69" HorizontalAlignment="Center"><Run Text="tel. číslo"/></TextBlock>
                 <TextBox x:Name="tbTelNmb" Text="000000000" Margin="0" Canvas.Left="80" Canvas.Top="96" HorizontalAlignment="Center" TextChanged="tbTelNmb_TextChanged"/>
             </StackPanel>
-            <StackPanel Name="stpSms" Margin="71,150,0,0" Width="150" HorizontalAlignment="Center">
+            <StackPanel Name="stpSms" Margin="0,150,0,0" Width="270" HorizontalAlignment="Center">
                 <TextBlock Canvas.Left="92" Canvas.Top="127" Width="73" HorizontalAlignment="Center"><Run Text="text sms"/></TextBlock>
-                <TextBox x:Name="tbTSmsText" Width="150" Canvas.Top="150" Canvas.Left="56" HorizontalAlignment="Center" HorizontalContentAlignment="Center" TextChanged="tbTSmsText_TextChanged" />
+                <TextBox x:Name="tbTSmsText" Width="272" Canvas.Top="150" Canvas.Left="56" HorizontalAlignment="Center" HorizontalContentAlignment="Center" TextChanged="tbTSmsText_TextChanged" PreviewTextInput="tbTSmsText_PreviewTextInput" />
             </StackPanel>
             <Button x:Name="btnOk" Content="uložit" Canvas.Left="10" Canvas.Top="233" Width="75" RenderTransformOrigin="-0.014,0.46" Click="btnOk_Click"/>
             <Button x:Name="btnCancel" Content="zrušit" Canvas.Left="186" Canvas.Top="233" Width="75" RenderTransformOrigin="-0.014,0.46" Click="btnCancel_Click"/>

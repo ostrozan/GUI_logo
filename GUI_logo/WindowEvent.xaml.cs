@@ -78,12 +78,7 @@ namespace GUI_logo
         }
 
         public void Nacti_historii()
-        {
-            //List<string> events = new List<string>();
-            //StringBuilder bldr = new StringBuilder();
-          
-
-            
+        {  
             events = rx_data.Split('>').ToList();
             events.RemoveAt(0);//prvni odebrat
             events.RemoveAt(events.Count - 1);//posledni odebrat
@@ -93,65 +88,17 @@ namespace GUI_logo
                 if(sx[0]!="65535" )
                 {
                     sx[6] = sx[6].PadLeft(4, '0');
-                    UInt16 udalost = Convert.ToUInt16(sx[6], 16);                 
+                    UInt16 udalost = Convert.ToUInt16(sx[6], 16);    
+                    
                     string radek = sx[2] + '.' + sx[1] + '.' + sx[0] + "   " + sx[3] + ':' + sx[4] + ':' + sx[5] + "   ";
                     if (udalost == 0) radek += "RESET ";
+                    else if (udalost == 0x500) radek += "dotaz na stav z GSM";
                     else if (udalost >= 0x200) radek += "vstup " + VyberVstup(udalost);
                     else radek += "výstup " + VyberVystup(udalost);
                     radek += "  " + VyberUdalost(udalost) + '\n';
                     tbMain.Text += radek;
-                    //tr = new TextRange(par.ContentStart, par.ContentEnd);              
-                    //sx[6] = sx[6].PadLeft(4, '0');
-                    //tr.Text = sx[2]+'.'+ sx[1] + '.' + sx[0] + "   " + sx[3] + ':' + sx[4] + ':' + sx[5]+ "   ";
-                    //tr.Text += "výstup " + VyberVystup(Convert.ToUInt16(sx[6],16));
-                    //tr.Text += "  " +VyberUdalost(Convert.ToUInt16(sx[6],16));
-                    //par = new Paragraph(new Run(tr.Text));
-                    //par.Foreground = color;
-                    //document.Blocks.Add(par);
                 }
-
-
             }
-            //for (int i = 12; i <= (int)(((spojeni.ComData[2][1] + 1) * 8) + 14); i += 8)
-            //{
-            //    if (spojeni.ComData[2][i - 6] > 20)
-            //    {
-            //        if (spojeni.ComData[2][i - 6] < 30) bldr.Append(' ');
-            //        bldr.Append(spojeni.ComData[2][i - 6] - 20);
-            //        bldr.Append('.');
-            //        if (spojeni.ComData[2][i - 5] < 30) bldr.Append(' ');
-            //        bldr.Append(spojeni.ComData[2][i - 5] - 20);
-            //        bldr.Append('.');
-            //        bldr.Append("   ");
-
-            //        if (spojeni.ComData[2][i - 4] < 30) bldr.Append(' ');
-            //        bldr.Append(spojeni.ComData[2][i - 4] - 20);
-            //        bldr.Append(':');
-            //        if (spojeni.ComData[2][i - 3] < 30) bldr.Append('0');
-            //        bldr.Append(spojeni.ComData[2][i - 3] - 20);
-            //        bldr.Append(':');
-            //        if (spojeni.ComData[2][i - 2] < 30) bldr.Append('0');
-            //        bldr.Append(spojeni.ComData[2][i - 2] - 20);
-
-            //        tr.Text += " " + bldr.ToString();
-            //        bldr.Remove(0, bldr.Length);
-
-
-
-            //        string str = VyberUdalost(spojeni.ComData[2][i]);
-            //        if (str == "poplach")
-            //            tr.Text += "   " + str + " " + VyberPopisSmycky((int)spojeni.ComData[2][i - 1]) + '\n';
-            //        else tr.Text += "   " + str + '\n';
-            //        // tr.ApplyPropertyValue(TextElement.ForegroundProperty,color);
-            //        /// bldr.Remove (0, bldr.Length);
-            //    }
-
-            //    else tr.Text += "- - - - - - - - -\n";
-
-            //    tr.Text = "";
-            //}
-
-
         }
 
         private string VyberVystup(UInt16 typ_udalosti)
@@ -212,7 +159,7 @@ namespace GUI_logo
                 case 0x100: str = "vypnut ručně z PC"; color = Brushes.Green; break;
                 case 0x200: str = "odeslána sms"; color = Brushes.Green; break;
                 case 0x300: str = "prozvonění"; color = Brushes.Green; break;
-                case 0x400: str = "odeslána sms + prozvonění"; color = Brushes.Green; break;
+                case 0x400: str = "odeslána sms + prozvonění"; color = Brushes.Green; break;      
             }
             return str;
         }

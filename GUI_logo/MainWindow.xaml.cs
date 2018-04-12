@@ -266,7 +266,7 @@ namespace GUI_logo
             ofd.ShowDialog();
         }
 
-        private void btnUpload_Click(object sender, RoutedEventArgs e)
+        private  void btnUpload_Click(object sender, RoutedEventArgs e)
         {
             string data = "";
 
@@ -282,11 +282,15 @@ namespace GUI_logo
                     data += b ? "1" : "0";
                 }
                 data += ":" + gpioData.inputs[i].Tel[0] + ' ';
-                data += ":" + gpioData.inputs[i].Sms[0].PadLeft(21, ' ') + ":\n";
-                com.send(data);
-
-                //index++
+                data += ":" + gpioData.inputs[i].Sms[0].PadLeft(20, ' ') + " : \n";
+                com.IsRxEvent = false;
+                com.GetAck(data);
+                if (!com.IsAck) return;
+                com.IsAck = false;
                 Thread.Sleep(200);
+                //if (!rxBuffer.Contains("Ok"))  return;
+                //index++
+
                 data = data.Remove(0);
             }
             //data += ":";
@@ -296,66 +300,68 @@ namespace GUI_logo
                 data += "D#O";
                 data += i.ToString();
 
-                data += ":";//isTimeControl
+                //data += ":";//isTimeControl
                 data += (bool)gpioData.outputs[i].IsTimeControl ? "1" : "0";
-                data += ":";//isInputControl
+                //data += ":";//isInputControl
                 data += (bool)gpioData.outputs[i].IsInputControl ? "1" : "0";
-                data += ":";//isExtControl
+                //data += ":";//isExtControl
                 data += (bool)gpioData.outputs[i].IsExtControl ? "1" : "0";
-                data += ":";//isSwitchClock
+                //data += ":";//isSwitchClock
                 data += (bool)gpioData.outputs[i].IsUseSwitchClk ? "1" : "0";
-                data += ":";//isPrgTmr
+                //data += ":";//isPrgTmr
                 data += (bool)gpioData.outputs[i].IsUseProgTmr ? "1" : "0";
-                data += ":";
+                //data += ":";
                 data += (bool)gpioData.outputs[i].IsUseThermostat ? "1" : "0";
-                data += ":";
+                //data += ":";
                 //Thermostat
-                data += Convert.ToString((int)(gpioData.outputs[i].temperature * 10));
-                data += ":";
-                data += Convert.ToString((int)(gpioData.outputs[i].hystreresis * 10));
-                data += ":";
-                data += Convert.ToString((int)(gpioData.outputs[i].alarmHi * 10));
-                data += ":";
-                data += Convert.ToString((int)(gpioData.outputs[i].alarmLo * 10));
-                data += ":";
+                data += Convert.ToString((int)(gpioData.outputs[i].temperature * 10)).PadLeft(3,' ');
+                //data += ":";
+                data += Convert.ToString((int)(gpioData.outputs[i].hystreresis * 10)).PadLeft(3, ' ');
+                //data += ":";
+                data += Convert.ToString((int)(gpioData.outputs[i].alarmHi * 10)).PadLeft(3, ' ');
+                //data += ":";
+                data += Convert.ToString((int)(gpioData.outputs[i].alarmLo * 10)).PadLeft(3, ' ');
+                //data += ":";
                 data += (bool)gpioData.outputs[i].IsAlarmHi ? "1" : "0";
-                data += ":";
+                //data += ":";
                 data += (bool)gpioData.outputs[i].IsAlarmLo ? "1" : "0";
-                data += ":";
+                //data += ":";
                 if (gpioData.outputs[i].KtereCidlo == 0) data += '0';
                 else data += gpioData.outputs[i].KtereCidlo;
-                data += ":";
+                //data += ":";
                 //ProgTimer
                 data += (bool)gpioData.outputs[i].IsTrvale ? "1" : "0";
-                data += ":";
+                //data += ":";
                 data += (bool)gpioData.outputs[i].IsNastCas ? "1" : "0";
-                data += ":";
+                //data += ":";
                 data += (bool)gpioData.outputs[i].IsSwitchOn ? "1" : "0";
-                data += ":";
+                //data += ":";
                 data += (bool)gpioData.outputs[i].IsSwitchOff ? "1" : "0";
-                data += ":";
+                //data += ":";
                 data += (bool)gpioData.outputs[i].IsAnyChange ? "1" : "0";
-                data += ":";
-                data += gpioData.outputs[i].controlTimes.timeOfDelay.ToString() + ':' + gpioData.outputs[i].controlTimes.timeOfPulse.ToString() + ":";
+                //data += ":";
+                data += gpioData.outputs[i].controlTimes.timeOfDelay.ToString().PadLeft(4, ' ') /*+ ':'*/ + gpioData.outputs[i].controlTimes.timeOfPulse.ToString().PadLeft(4, ' ')/* + ":"*/;
 
                 for (int ii = 0; ii < 4; ii++)
                 {
                     if (ii < gpioData.outputs[i].minuteSpan.Count)
                     {
-                        data += gpioData.outputs[i].minuteSpan[ii].startTime.ToString() + ":" + gpioData.outputs[i].minuteSpan[ii].stopTime.ToString() + ":";
+                        data += gpioData.outputs[i].minuteSpan[ii].startTime.ToString().PadLeft(4, ' ') /*+ ":"*/ + gpioData.outputs[i].minuteSpan[ii].stopTime.ToString().PadLeft(4, ' ') /*+ ":"*/;
                     }
                     //else if (ii > 0) break;
-                    else data += "1500" + ":" + "1500" + ":";//1500 nerealny pocet minut za den (max 1440)  - 0 potrebuju pro pulnoc
+                    else data += "1500" + /*":" + */"1500" /*+ ":"*/;//1500 nerealny pocet minut za den (max 1440)  - 0 potrebuju pro pulnoc
 
                 }
                 //data += ":";
 
                 //if(index==5) data += "E#\n";
                 //else
-                data += "\n";
+                data += " \n";
                 index++;
                 int l = data.Length;
-                com.send(data);
+                com.GetAck(data);
+                if (!com.IsAck) return;
+                com.IsAck = false;
 
                 Thread.Sleep(200);
                 data = data.Remove(0);
@@ -367,8 +373,11 @@ namespace GUI_logo
             //data += gpioData.gsmData[0].telNumbers[1] + ' ';
             //data += gpioData.gsmData[0].telNumbers[2] + " :";
             data += gpioData.gsmData[0].outNmb;
-            data += "E#\n";
-            com.send(data);
+            data += "E# \n";
+            com.GetAck(data);
+            if(!com.IsAck) return;
+            com.IsAck = false;
+            //if (!rxBuffer.Contains("Ok")) return;
             Thread.Sleep(200);
             data = data.Remove(0);
         }
@@ -385,7 +394,7 @@ namespace GUI_logo
             str = str.Replace('.', '#');
             str = str.Replace(':', '#');
             str = str.Replace(' ', '#');
-            str += "#\n";
+            str += "# \n";
             com.send(str);
         }
         #endregion//end buttons clicks
@@ -710,7 +719,21 @@ namespace GUI_logo
             while(!txBuffer.Contains("event"));
         }
 
-        private async void btnEventProtocol_Click(object sender, RoutedEventArgs e)
+        private bool GetAck(string s)
+        {
+            int cnt = 0;
+            com.send(s);
+            while (!com.IsRxEvent)
+            {
+                Thread.Sleep(10);
+                if (++cnt > 100) break;
+            }
+
+            com.IsRxEvent = false;
+            return (cnt>100)?false:true;
+        }
+
+        private async void BtnEventProtocol_Click(object sender, RoutedEventArgs e)
         {
             await GetEventList();
             WindowEvent wind = new WindowEvent(com,txBuffer);

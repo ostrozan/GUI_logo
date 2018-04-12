@@ -23,7 +23,7 @@
                 <RadioButton x:Name="rbCasem" Content="časem" Checked="chbCasem_Checked" Unchecked="chbCasem_Unchecked" />
                 <RadioButton x:Name="rbVstupy" Content="vstupy" Checked="rbVstupy_Checked" />
                 <RadioButton x:Name="rbTemp" Content="teplotou" Checked="rbTemp_Checked" />
-                <RadioButton x:Name="rbExtern" Content="externě" Checked="rbExtern_Checked" />
+                <CheckBox x:Name="rbExtern" Content="externě" Checked="rbExtern_Checked" />
             </StackPanel>
 
         </GroupBox>

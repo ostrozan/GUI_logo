@@ -116,8 +116,13 @@ namespace GUI_logo
 
         private void tbTSmsText_TextChanged(object sender, TextChangedEventArgs e)
         {
+            //if (tbTSmsText.Text.Length > 19) return;
             sms = tbTSmsText.Text;
         }
 
+        private void tbTSmsText_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (tbTSmsText.Text.Length >= 19) e.Handled = true;
+        }
     }
 }

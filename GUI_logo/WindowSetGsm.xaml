@@ -8,6 +8,7 @@
         Title="Nastavení Gsm" Height="401.264" Width="363.623" Loaded="Window_Loaded">
     <Grid Margin="0,0,-7.17,0.321">
         <StackPanel Name="stpOutselect"  HorizontalAlignment="Left" VerticalAlignment="Top" Margin="78,226,0,0">
+            <RadioButton Name="rbOutSelnone" Uid="8" Content="žádný"/>
             <RadioButton Name="rbOutSel1" Uid="0" Content="rele1"/>
             <RadioButton Name="rbOutSel2" Uid="1" Content="rele2"/>
             <RadioButton Name="rbOutSel3" Uid="2" Content="out3"/>
@@ -68,7 +69,7 @@
         <Button x:Name="btnOk" Content="uložit" HorizontalAlignment="Left" Margin="25,334,0,0" VerticalAlignment="Top" Width="75" FontSize="18" Click="btnOk_Click"/>
         <Button x:Name="btnCancel" Content="zrušit" HorizontalAlignment="Left" Margin="260,334,0,0" VerticalAlignment="Top" Width="75" FontSize="18" Click="btnCancel_Click"/>
         <CheckBox x:Name="chbGsmConfirmEn" Content="Povolit potvrzení sms" HorizontalAlignment="Left" Margin="42,40,0,0" VerticalAlignment="Top" Checked="chbGsmConfirmEn_Checked"/>
-        <TextBlock HorizontalAlignment="Left" Margin="30,190,0,0" TextWrapping="Wrap" Text="Výstup ovládaný prozvoněním " VerticalAlignment="Top" Height="16.509" Width="150"/>
+        <TextBlock HorizontalAlignment="Left" Margin="30,190,0,0" TextWrapping="Wrap" Text="Výstup ovládaný prozvoněním " VerticalAlignment="Top" Height="16.509"/>
 
     </Grid>
 </Window>

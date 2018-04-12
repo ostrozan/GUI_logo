@@ -21,6 +21,8 @@ namespace GUI_logo
         public comState State { get; private set; }
         public SerialPort serialPort = new SerialPort();
         public string[] DejPorty { get { return SerialPort.GetPortNames(); } }
+        public bool IsRxEvent { get; set; }
+        public bool IsAck { get; set; }
         public Com()
         {
             serialPort.DataReceived += SerialPort_DataReceived;
@@ -77,6 +79,7 @@ namespace GUI_logo
         {
             //string s = 
             MainWindow.txBuffer = serialPort.ReadLine();
+            IsRxEvent = true;
             serialPort.DiscardInBuffer();
             MainWindow.textMsg[1] = MainWindow.txBuffer;
             if (MainWindow.txBuffer.Contains("dt>"))
@@ -90,6 +93,11 @@ namespace GUI_logo
             {
 
                 if (MainWindow.txBuffer.Contains("rec")) MessageBox.Show("data upload succesful");
+                if (MainWindow.txBuffer.Contains("Ok"))
+                {
+                    int a = 10;
+                    IsAck = true;
+                } 
                 else if (MainWindow.txBuffer.Contains("Err")) MessageBox.Show("chyba přenosu dat - zkuste znovu");
                 if (MainWindow.txBuffer.Contains("flg"))
                 {
@@ -150,8 +158,18 @@ namespace GUI_logo
 
         public void send(string command)
         {
+            int checksum = 0;
 
-            char[] pole = command.ToCharArray();// new char[command.Length];
+            byte[] pole = Encoding.ASCII.GetBytes(command);
+           
+            for(int i =0;i<pole.Length-3;i++)
+            {
+                checksum += pole[i];
+            }
+            checksum &= 0xFF;
+            checksum = (byte)(0-checksum);
+            
+            pole[command.Length - 2] =(byte) checksum;
             serialPort.Write(pole, 0, command.Length);
 
         }
@@ -189,6 +207,20 @@ namespace GUI_logo
                 MessageBox.Show(e.Message);
 
             }
+        }
+
+        public bool GetAck(string s)
+        {
+            int cnt = 0;
+            send(s);
+            while (!IsRxEvent)
+            {
+                Thread.Sleep(10);
+                if (++cnt > 100) break;
+            }
+
+            IsRxEvent = false;
+            return (cnt > 100) ? false : true;
         }
     }
 }

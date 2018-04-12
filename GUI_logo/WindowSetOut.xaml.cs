@@ -267,9 +267,9 @@ namespace GUI_logo
 
         private void rbExtern_Checked(object sender, RoutedEventArgs e)
         {
-            contCtrl.Content = null;
-            this.UpdateLayout();
-            this.Height = mainGrid.ActualHeight + 80;
+            //contCtrl.Content = null;
+            //this.UpdateLayout();
+            //this.Height = mainGrid.ActualHeight + 80;
         }
     }
 }
