@@ -30,11 +30,11 @@ namespace GUI_logo
         private Paragraph par = new Paragraph();
         private TextRange tr;
 
-        public WindowEvent(Com com,string rx_data)
+        public WindowEvent(Com com)
         {
             InitializeComponent();
             this.com = com;
-            this.rx_data = rx_data;
+            //this.rx_data = rx_data;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -50,7 +50,7 @@ namespace GUI_logo
 
         private void button2_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            Close();
         }
 
         private void button1_Click(object sender, RoutedEventArgs e)
@@ -79,7 +79,7 @@ namespace GUI_logo
 
         public void Nacti_historii()
         {  
-            events = rx_data.Split('>').ToList();
+            events = com.rxBuffer.Split('>').ToList();
             events.RemoveAt(0);//prvni odebrat
             events.RemoveAt(events.Count - 1);//posledni odebrat
             for (int i=0; i< events.Count;i++)

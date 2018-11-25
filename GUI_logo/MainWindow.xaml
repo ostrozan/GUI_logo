@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:GUI_logo"
         xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2" x:Class="GUI_logo.MainWindow"
         mc:Ignorable="d"
-        Title="ArDaLu configurator 1.0" Width="612.245" Loaded="Window_Loaded" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Height="440" >
+        Title="ArDaLu configurator 1.0" Width="612.245" Loaded="Window_Loaded" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Height="440" Closed="Window_Closed" >
     <Window.Resources>
         <Style x:Key="FocusVisual">
             <Setter Property="Control.Template">

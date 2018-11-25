@@ -3,7 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.IO.Ports;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading;
@@ -39,7 +41,7 @@ namespace GUI_logo
         DispatcherTimer timer = new DispatcherTimer();
         private List<string> folderList;
         private ObservableCollection<string> projectList = new ObservableCollection<string>();
-        public static string txBuffer;
+        
         public static string rxBuffer;
         public static List<int> VSTUPY = new List<int>() { 0, 0, 0, 0 };
         public static List<int> VYSTUPY = new List<int>() { 0, 0, 0, 0, 0, 0 };
@@ -57,8 +59,10 @@ namespace GUI_logo
         public static ObservableCollection<string> temperatures { get; set; } = new ObservableCollection<string>() { "", "" };
         public static ObservableCollection<string> textMsg { get; set; } = new ObservableCollection<string>() { "", "" };
         public static ObservableCollection<int> gsmSigValue { get; set; } = new ObservableCollection<int>() { 0 };
+        public static  Cursor curs;
         //private string currFile;
-        Com com;
+        Com comUsb;
+        Com comBluetooth;
         bool handControlEnable, changeEnable;
         public static bool projectSaved;
         //MyThumb myThumb2;
@@ -90,35 +94,41 @@ namespace GUI_logo
             In4.Led.Fill = Brushes.DimGray;
             inputs = new ObservableCollection<Gpio>() { In1, In2, In3, In4 };
             outputs = new ObservableCollection<Gpio>() { Out1, Out2, Out3, Out4, Out5, Out6 };
-            com = new Com();
+            //comBluetooth = new Com("Bluetooth",38400);
+            //if (comBluetooth.serialPort.PortName == "none") Close();
+            //comBluetooth.OpenPort();
             DataContext = this;
             btnAktCas.IsEnabled = false;
             btnUpload.IsEnabled = false;
+            curs = this.Cursor;
             //Out1.stPanel.Children.Add(Out1.img);
             //Out1.stPanel.Children.Add(Out1.tblCounter);
             //tbCounter1.Text = "99:24";
+           
         }
 
         #region obsluhy udalosti
         #region butons clicks
         private void btnSerCom_Click(object sender, RoutedEventArgs e)
         {
-            com.OpenPort();
-            if (com.State != Com.comState.fail)
+      
+            //comBluetooth = new Com("Bluetooth", 38400);
+            comBluetooth.TogglePort();
+            if (comBluetooth.State != Com.comState.fail)
             {
-                if (com.State == Com.comState.open)
+                if (comBluetooth.State == Com.comState.open)
                 {
                     btnAktCas.IsEnabled = true;
                     btnUpload.IsEnabled = true;
                     btnSerCom.Content = "Odpojit";
-                    MessageBox.Show(com.serialPort.PortName + " byl úspěšně  připojen");
+                    MessageBox.Show(comBluetooth.serialPort.PortName + " byl úspěšně  připojen");
                 }
                 else
                 {
                     btnAktCas.IsEnabled = false;
                     btnUpload.IsEnabled = false;
                     btnSerCom.Content = "Připojit";
-                    MessageBox.Show(com.serialPort.PortName + " byl úspěšně  odpojen");
+                    MessageBox.Show(comBluetooth.serialPort.PortName + " byl úspěšně  odpojen");
                 }
             }
         }
@@ -165,13 +175,13 @@ namespace GUI_logo
                     if (VSTUPY[pom] == 0)
                     {
                         VSTUPY[pom] = 1;
-                        com.send("M-I-" + int.Parse(gpio.Uid) + "-1\n");
+                        comBluetooth.send("M-I-" + int.Parse(gpio.Uid) + "-1 \n");
                     }
 
                     else
                     {
                         VSTUPY[pom] = 0;
-                        com.send("M-I-" + int.Parse(gpio.Uid) + "-0\n");
+                        comBluetooth.send("M-I-" + int.Parse(gpio.Uid) + "-0 \n");
                     }
                 }
                 else if (stp.Uid == "out")
@@ -179,13 +189,13 @@ namespace GUI_logo
                     if (VYSTUPY[pom] == 0)
                     {
                         VYSTUPY[pom] = 1;
-                        com.send("M-O-" + int.Parse(gpio.Uid) + "-1\n");
+                        comBluetooth.send("M-O-" + int.Parse(gpio.Uid) + "-1 \n");
                     }
 
                     else
                     {
                         VYSTUPY[pom] = 0;
-                        com.send("M-O-" + int.Parse(gpio.Uid) + "-0\n");
+                        comBluetooth.send("M-O-" + int.Parse(gpio.Uid) + "-0 \n");
                     }
                 }
             }
@@ -266,11 +276,19 @@ namespace GUI_logo
             ofd.ShowDialog();
         }
 
-        private  void btnUpload_Click(object sender, RoutedEventArgs e)
+        private void btnUpload_Click(object sender, RoutedEventArgs e)
         {
+            if(!comUsb.serialPort.IsOpen)comUsb.TogglePort();//otevrit port pokud neni otevreny
+            
             string data = "";
-
+            Cursor = Cursors.Wait;
+            //com.GetAck("Load \n", 4000);
+            //if (!com.IsAck) return;
+            //com.IsAck = false;
+            ////Thread.Sleep(2500);
             int index = 0;
+            try
+            { 
             for (int i = 0; i < 4; i++)
             {
                 data += "D#I";
@@ -283,14 +301,14 @@ namespace GUI_logo
                 }
                 data += ":" + gpioData.inputs[i].Tel[0] + ' ';
                 data += ":" + gpioData.inputs[i].Sms[0].PadLeft(20, ' ') + " : \n";
-                com.IsRxEvent = false;
-                com.GetAck(data);
-                if (!com.IsAck) return;
-                com.IsAck = false;
-                Thread.Sleep(200);
-                //if (!rxBuffer.Contains("Ok"))  return;
-                //index++
-
+                comUsb.IsRxEvent = false;
+                comUsb.GetAck(data,200);
+                if (!comUsb.IsAck) return;
+                comUsb.IsAck = false;
+                    Thread.Sleep(30);
+                    //if (!rxBuffer.Contains("Ok"))  return;
+                    //index++
+                    int a = data.Length;
                 data = data.Remove(0);
             }
             //data += ":";
@@ -359,12 +377,12 @@ namespace GUI_logo
                 data += " \n";
                 index++;
                 int l = data.Length;
-                com.GetAck(data);
-                if (!com.IsAck) return;
-                com.IsAck = false;
-
-                Thread.Sleep(200);
-                data = data.Remove(0);
+                comUsb.GetAck(data,200);
+                if (!comUsb.IsAck) return;
+                comUsb.IsAck = false;
+                    int a = data.Length;
+                    Thread.Sleep(30);
+                    data = data.Remove(0);
             }
             data = "D#G";
             data += (gpioData.gsmData[0].isEnabled) ? '1' : '0';
@@ -374,12 +392,29 @@ namespace GUI_logo
             //data += gpioData.gsmData[0].telNumbers[2] + " :";
             data += gpioData.gsmData[0].outNmb;
             data += "E# \n";
-            com.GetAck(data);
-            if(!com.IsAck) return;
-            com.IsAck = false;
-            //if (!rxBuffer.Contains("Ok")) return;
-            Thread.Sleep(200);
-            data = data.Remove(0);
+            comUsb.GetAck(data,200);
+            if(!comUsb.IsAck) return;
+            comUsb.IsAck = false;
+                //if (!rxBuffer.Contains("Ok")) return;
+                Thread.Sleep(30);
+                //await WaitEndAck();
+                data = data.Remove(0);
+            
+            }
+            catch(Exception ex)
+            {
+                //MessageBox.Show("Není vybrán žádný projekt");
+                MessageBox.Show(ex.Message);
+
+
+            }
+            finally
+            {
+             Cursor = Cursors.Arrow;
+                comUsb.TogglePort();//zavrit port
+                //comUsb.serialPort.Close();
+            }
+           
         }
 
         private void btnDownload_Click(object sender, RoutedEventArgs e)
@@ -395,12 +430,12 @@ namespace GUI_logo
             str = str.Replace(':', '#');
             str = str.Replace(' ', '#');
             str += "# \n";
-            com.send(str);
+            comBluetooth.send(str);
         }
         #endregion//end buttons clicks
         private void cmbComPorts_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            com.serialPort.PortName = cmbComPorts.SelectedItem.ToString();
+            comBluetooth = new Com(cmbComPorts.SelectedItem.ToString(),38400);
 
         }
 
@@ -414,7 +449,7 @@ namespace GUI_logo
             projPaths = new ObservableCollection<string>();
             path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "ArDaLu projekty");
             if (!Directory.Exists(path)) Directory.CreateDirectory(path);
-            cmbComPorts.ItemsSource = com.DejPorty;
+            cmbComPorts.ItemsSource = Com.DejPorty;
             gpioData.inputs = new ObservableCollection<In>() { In1.GpIn, In2.GpIn, In3.GpIn, In4.GpIn };
             gpioData.outputs = new ObservableCollection<Out>() { Out1.GpOut, Out2.GpOut, Out3.GpOut, Out4.GpOut, Out5.GpOut, Out6.GpOut };
             gpioData.gsmData = new ObservableCollection<GsmData>() { new GsmData() };
@@ -427,6 +462,9 @@ namespace GUI_logo
                 gp.extImg = new BitmapImage(new Uri("pack://application:,,,/Images/radio.jpg"));
             }
             GetProjNames();
+            comUsb = new Com("Arduino", 38400);
+
+            if (comUsb.serialPort.PortName == "none") Close();
             timer.Interval = TimeSpan.FromMilliseconds(100);
             timer.Tick += Timer_Tick;
             timer.Start();
@@ -596,8 +634,8 @@ namespace GUI_logo
         {
             handControlEnable = false;
             changeEnable = true;
-            if (com.State == Com.comState.open) { btnUpload.IsEnabled = true; btnAktCas.IsEnabled = true; }
-            else { btnUpload.IsEnabled = false; btnAktCas.IsEnabled = false; }
+             btnUpload.IsEnabled = true; btnAktCas.IsEnabled = true; 
+            //else { btnUpload.IsEnabled = false; btnAktCas.IsEnabled = false; }
             //btnDownload.IsEnabled = true;
         }
 
@@ -714,30 +752,44 @@ namespace GUI_logo
 
         private async Task GetEventList()
         {
-            com.send("U#..................\n");
+            comBluetooth.send("U#..................\n");
+            //com.GetAck("U#..................\n", 300);
+            //if (!com.IsAck) return;
+            //com.IsAck = false;
+            //Thread.Sleep(200);
+            while (!comBluetooth.rxBuffer.Contains("event")) ;
+        }
 
-            while(!txBuffer.Contains("event"));
+        private async Task WaitEndAck()
+        {
+            while (!comUsb.rxBuffer.Contains("rec")) ;
         }
 
         private bool GetAck(string s)
         {
             int cnt = 0;
-            com.send(s);
-            while (!com.IsRxEvent)
+            comUsb.send(s);
+            while (!comUsb.IsRxEvent)
             {
                 Thread.Sleep(10);
                 if (++cnt > 100) break;
             }
 
-            com.IsRxEvent = false;
+            comUsb.IsRxEvent = false;
             return (cnt>100)?false:true;
         }
 
         private async void BtnEventProtocol_Click(object sender, RoutedEventArgs e)
         {
             await GetEventList();
-            WindowEvent wind = new WindowEvent(com,txBuffer);
+            WindowEvent wind = new WindowEvent(comBluetooth);
             wind.ShowDialog();
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            //if(comUsb.serialPort.IsOpen)comUsb.serialPort.Close();
+            if (comBluetooth.serialPort.IsOpen) comBluetooth.serialPort.Close();
         }
 
         private void Rectangle_Click(object sender, MouseButtonEventArgs e)
